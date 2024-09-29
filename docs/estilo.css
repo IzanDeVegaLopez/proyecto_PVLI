@@ -23,8 +23,15 @@ h2{
   font-weight: 400;
   text-align: center;
 }
+h3{
+  color: #4158A6;
+  font-family: "Grandstander";
+  font-size: 36px;
+  font-weight: 200;
+  text-align: center;
+}
 p {
-    color: #4158A6;
+    color: #182346;
     white-space: pre;
     margin-left: 20%;
     margin-right: 20%;
@@ -33,10 +40,33 @@ p {
     font-size: 24px;
     word-wrap: break-word;
     white-space: pre-wrap;
-    text-align: justify;
+    text-align: center;
+}
+img{
+  width: 100px;
 }
 
 body {
     background: #F1DEC6;
     /*background: linear-gradient(90deg, rgba(0,212,255,1) 0, rgba(9,9,121,1) 35% , rgba(2,0,36,1) 50%, rgba(255,0,0) 75%, rgba(0,255,0) 100%);*/
+}
+.column {
+    float: left;
+    width: 25%;
+}
+.column2 {
+    float: left;
+    width: 33%;
+}
+.column3 {
+    float: left;
+    width: 50%;
+}
+.images{
+  text-align: center;
+}
+.credits{
+  color: #4a4e5c;
+  font-size: 12px;
+  text-align: center;
 }
