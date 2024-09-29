@@ -1,14 +1,42 @@
+.grandstander {
+  font-family: "Grandstander", cursive;
+  font-optical-sizing: auto;
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
 h1 {
-  color: greenyellow;
+  color: #FF8343;
+  font-family: "Grandstander";
+  font-size: 96px;
+  font-weight: 800;
+  text-align: center;
 }
 .clase {
   color: red;
 }
+h2{
+  color: #179BAE;
+  font-family: "Grandstander";
+  font-size: 48px;
+  font-weight: 400;
+  text-align: center;
+}
 p {
+    color: #4158A6;
     white-space: pre;
+    margin-left: 20%;
+    margin-right: 20%;
+    font-family: "Grandstander";
+    font-weight: 100;
+    font-size: 24px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: justify;
 }
 
 body {
-    background: rgb(255, 255, 255);
+    background: #F1DEC6;
     /*background: linear-gradient(90deg, rgba(0,212,255,1) 0, rgba(9,9,121,1) 35% , rgba(2,0,36,1) 50%, rgba(255,0,0) 75%, rgba(0,255,0) 100%);*/
 }
