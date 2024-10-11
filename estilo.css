@@ -1,0 +1,87 @@
+.grandstander {
+  font-family: "Grandstander", cursive;
+  font-optical-sizing: auto;
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+
+h1 {
+  color: #FF8343;
+  font-family: "Grandstander";
+  font-size: 96px;
+  font-weight: 800;
+  text-align: center;
+}
+.clase {
+  color: red;
+}
+h2{
+  color: #179BAE;
+  font-family: "Grandstander";
+  font-size: 48px;
+  font-weight: 400;
+  text-align: center;
+}
+h3{
+  color: #4158A6;
+  font-family: "Grandstander";
+  font-size: 36px;
+  font-weight: 200;
+  text-align: center;
+}
+p {
+    color: #182346;
+    white-space: pre;
+    margin-left: 20%;
+    margin-right: 20%;
+    font-family: "Grandstander";
+    font-weight: 100;
+    font-size: 24px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+
+body {
+    background: #F1DEC6;
+    /*background: linear-gradient(90deg, rgba(0,212,255,1) 0, rgba(9,9,121,1) 35% , rgba(2,0,36,1) 50%, rgba(255,0,0) 75%, rgba(0,255,0) 100%);*/
+}
+
+hr{
+  border-top: 10px dotted #179BAE;
+  border-bottom: 0px;
+  width: 75%;
+}
+
+.column {
+    float: left;
+    width: 25%;
+}
+.column2 {
+    float: left;
+    width: 33%;
+}
+.column3 {
+    float: left;
+    width: 50%;
+}
+
+.blankspace{
+  height: 800px;
+  width: auto;
+}
+.smallimages{
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: auto;
+}
+.credits{
+  color: #4a4e5c;
+  font-size: 12px;
+  text-align: center;
+}
