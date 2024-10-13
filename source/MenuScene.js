@@ -1,4 +1,9 @@
 import {KEY_BINDINGS} from './InputKeys.js';
+import Player from './player.js';
+
+//La declaro aquí para que tenga acceso todo el archivo
+let player;
+let KEYS;
 
 /*Escena de Phaser*/
 export default class MenuScene extends Phaser.Scene {
@@ -24,34 +29,41 @@ export default class MenuScene extends Phaser.Scene {
     /**
      * @todo mover todas las funciones del jugador movimiento y tal a una sola clase
      */
-
-    create(){
-        //Posicion de Sawa para la casilla de arriba a la izquierda
-        const sawa00Pos = {
-            x:250,
-            y:125
-        }
-        //Valor a sumar para mover a Sawa de una casilla a otra adyacente
-        const tileDiff = {
-            x:140,
-            y: 95
-        }
-
-
+    //MUY IMPORTANTE, cargar antes las imagenes que esten más detras pq si no taparan las que hayamos cargado antes
+    create(){        
         //Esta linea crea todas las teclas que usaremos en esta escena a paritr del fichero KEY_BINDINGS
-        const KEYS = this.input.keyboard.addKeys(KEY_BINDINGS);
+        KEYS = this.input.keyboard.addKeys(KEY_BINDINGS);
 
         //Create fondo
         this.add.image(0,0,"fondo").setDisplaySize(this.game.scale.width, this.game.scale.height).setOrigin(0,0);
 
+
+        //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
+        player = new Player(this, 250,125,140,95) ;
+        player.setOrigin();
+        player.setDisplaySize(100,100);
+
+
         //create Sawa -> player character
         //Se crea a Sawa en la posición 1,2 (el centro)
-        this.add.image(sawa00Pos.x + tileDiff.x, sawa00Pos.y + tileDiff.y*2,"sawa").setDisplaySize(100,100).setOrigin();
+        //this.add.image(sawa00Pos.x + tileDiff.x, sawa00Pos.y + tileDiff.y*2,"sawa").setDisplaySize(100,100).setOrigin();
     }
 
     update(){
-        //Ejemplo de como llamar al input system
-        //if (KEYS.JUMP.UP) // Move UP
+        //Ejemplo de como llamar ejecutar funciones cuando una tecla se pulse (solo se ejecuta una vez por cada pulsación de tecla)
+        //KEYS.UP.isDown se puede usar si queremos hacerlo mientras se mantenga pulsado
+        if (Phaser.Input.Keyboard.JustDown(KEYS.UP)) {
+            player.Move(0,-1);
+        }
+        else if(Phaser.Input.Keyboard.JustDown(KEYS.DOWN)) {
+            player.Move(0,1);
+        }
+        else if (Phaser.Input.Keyboard.JustDown(KEYS.LEFT)) {
+            player.Move(-1,0);
+        }
+        else if (Phaser.Input.Keyboard.JustDown(KEYS.RIGHT)){
+            player.Move(1,0);
+        }
     }
 
     //Aux Functions-------------------------------------------------------------------------------------------------------------------------------

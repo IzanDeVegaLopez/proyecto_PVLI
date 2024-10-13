@@ -1,16 +1,18 @@
 //Este fichero se deber importar en todas las escenas que usen input
 
-const { KeyCodes } = Phaser.Input.Keyboard; 
-//La variable KEY_BINDINGS tienen todas las teclas usadas.
-//Dentro de cada escena se decidirá que se hace con cada tecla
+const { KeyCodes } = Phaser.Input.Keyboard;
+/**
+ * La variable KEY_BINDINGS tienen todas las teclas usadas.
+ * Dentro de cada escena se decidirá que se hace con cada tecla
+ */
 export const KEY_BINDINGS = {
-  UP:   KeyCodes.W,
-  DOWN: KeyCodes.D,
-  LEFT: KeyCodes.A,
-  RIGHT: KeyCodes.D,
-  BUTTON1: KeyCodes.I,
-  BUTTON2: KeyCodes.O,
-  BUTTON3: KeyCodes.P
+    UP: KeyCodes.W,
+    DOWN: KeyCodes.S,
+    LEFT: KeyCodes.A,
+    RIGHT: KeyCodes.D,
+    BUTTON1: KeyCodes.I,
+    BUTTON2: KeyCodes.O,
+    BUTTON3: KeyCodes.P
 };
 
 /**
