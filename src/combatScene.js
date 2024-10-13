@@ -1,4 +1,4 @@
-import {KEY_BINDINGS} from './InputKeys.js';
+import {KEY_BINDINGS} from './inputKeys.js';
 import Player from './player.js';
 
 //La declaro aquí para que tenga acceso todo el archivo
@@ -6,7 +6,7 @@ let player;
 let KEYS;
 
 /*Escena de Phaser*/
-export default class MenuScene extends Phaser.Scene {
+export default class combatScene extends Phaser.Scene {
 
     /**
      * @todo hacer el juego resizeable, tutorial -> https://medium.com/@tajammalmaqbool11/full-screen-size-and-responsive-game-in-phaser-3-e563c2d60eab
@@ -23,7 +23,10 @@ export default class MenuScene extends Phaser.Scene {
     preload(){
         this.load.image("fondo", "./assets/img/IlustracionCombatZoneProvisional_LRhythm.jpg");
         this.load.image("sawa", "./assets/img/fathomgames500px.png");
-        //this.load.image("patatas", "./assets/patatas.jpg")
+        this.load.image("negra", "./assets/img/negra.png");
+        /**
+         * @todo loadear imagenes de las notas
+         */
     }
 
     /**
@@ -39,7 +42,7 @@ export default class MenuScene extends Phaser.Scene {
 
 
         //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
-        player = new Player(this, 250,125,140,95) ;
+        player = new Player(this);
         player.setOrigin();
         player.setDisplaySize(100,100);
 
@@ -63,6 +66,12 @@ export default class MenuScene extends Phaser.Scene {
         }
         else if (Phaser.Input.Keyboard.JustDown(KEYS.RIGHT)){
             player.Move(1,0);
+        }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON1)){
+            player.PlayInstrument(0);
+        }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON2)){
+            player.PlayInstrument(1);
+        }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON3)){
+            player.PlayInstrument(2);
         }
     }
 }
