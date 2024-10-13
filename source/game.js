@@ -5,8 +5,8 @@ import MenuScene from "./MenuScene.js";
  */
 let config = {
     type: Phaser.AUTO,
-    width:  800,
-    height: 600,
+    width:  1320,
+    height: 720,
     /**
      * @type {boolean}
      */
