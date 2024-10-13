@@ -1,6 +1,19 @@
+/**
+ * Cambiar la clase Player por la clase character
+ * Luego player y enemy heredan de la clase character
+ */
+
 //Clase player tiene todas las funciones de movimiento, toca instrumentos y demás
 //extiende de sprite para usar su cuerpo físico y cambiar la posición y animaciones del personaje según sus acciones
 export default class Player extends Phaser.GameObjects.Sprite{
+    /**
+     * 
+     * @param {*} scene la escena en la que está el personaje
+     * @param {*} x00 la posicion x en coordenadas del personaje en su casilla 00
+     * @param {*} y00 la posicion y en coordenadas del personaje en su casilla 00
+     * @param {*} xdiff la distancia entre el centro de las casillas en x
+     * @param {*} ydiff la distancia entre el centro de las casillas en y
+     */
     constructor(scene, x00, y00, xdiff, ydiff){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
         super(scene, x00, y00, 'sawa');
@@ -22,10 +35,12 @@ export default class Player extends Phaser.GameObjects.Sprite{
             maxX:2,
             maxY:4
         };
+        //la posición de la casilla 00 del personaje
         this.pos00 = {
             x:x00,
             y:y00
         }
+        //la distancia entre casillas
         this.tileDiff = {
             x: xdiff,
             y: ydiff

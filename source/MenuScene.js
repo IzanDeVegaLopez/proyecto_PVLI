@@ -65,11 +65,4 @@ export default class MenuScene extends Phaser.Scene {
             player.Move(1,0);
         }
     }
-
-    //Aux Functions-------------------------------------------------------------------------------------------------------------------------------
-    getTopBarHeight() {
-        let height = 60 * this.getScaleY();
-        height = Phaser.Math.Clamp(height, 45, 60);
-        return height;
-    }
 }
