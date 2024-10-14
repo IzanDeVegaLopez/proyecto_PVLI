@@ -1,5 +1,6 @@
 import {KEY_BINDINGS} from './inputKeys.js';
 import Player from './player.js';
+import Clock from './clock.js';
 
 //La declaro aquí para que tenga acceso todo el archivo
 let player;
@@ -23,10 +24,16 @@ export default class combatScene extends Phaser.Scene {
     preload(){
         this.load.image("fondo", "./assets/img/IlustracionCombatZoneProvisional_LRhythm.jpg");
         this.load.image("sawa", "./assets/img/fathomgames500px.png");
-        this.load.image("negra", "./assets/img/negra.png");
+        /**Todo cambiar clock por la imagen de las notitas que bajan hasta el punto correcto*/
+        this.load.image("clock", "./assets/img/discord.png");
         /**
          * @todo loadear imagenes de las notas
          */
+        this.load.image("negra", "./assets/img/negra.png");
+
+        
+        //iniciar el clock con los BPM como parametro
+        new Clock(this, 160);
     }
 
     /**
@@ -45,11 +52,7 @@ export default class combatScene extends Phaser.Scene {
         player = new Player(this);
         player.setOrigin();
         player.setDisplaySize(100,100);
-
-
-        //create Sawa -> player character
-        //Se crea a Sawa en la posición 1,2 (el centro)
-        //this.add.image(sawa00Pos.x + tileDiff.x, sawa00Pos.y + tileDiff.y*2,"sawa").setDisplaySize(100,100).setOrigin();
+        
     }
 
     update(){
