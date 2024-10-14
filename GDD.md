@@ -62,93 +62,97 @@ El ritmo coincide con el tiempo que tardan las notas en avanzar una casilla comp
 ## Notas Musicales
 Las notas musicales son los proyectiles que surcan el tablero. Avanzan a velocidad constante (salvo efectos especiales) en dirección al contrario a quien las produjo. De forma normal está velocidad es una casilla por beat.
 ### Tipos
-Redondas (Opcional) → aumenta la autoestima en 8
-Blancas → aumenta la autoestima en 4
-Negras → aumenta la autoestima en 2
-Corcheas → aumenta la autoestima en 1
-Keywords
-Adagio → avanzan a x0.5 de velocidad. Aplicar adagio a una nota allegro elimina ambas keywords.
-Allegro → avanzan a x2 de velocidad. Aplicar allegro a una nota adagio, elimina ambas keywords.
-Forte → Pueden destruir notas enemigas al tocarlas. Al destruir una nota, su categoría de nota baja en 1. Es decir con cada golpe se convertirían en la siguiente a la derecha (blanca → negra → corchea →desaparecer). Opcional: (Solo pueden destruir una nota por beat)
-Piano → las notas piano no pueden dañar al rival (ni colisionar con otras notas con forte). Algunos instrumentos permiten aplicar esta palabra a notas enemigas o quitarselo a las tuyas. Hay instrumentos que generan estas notas por defecto.
-Earworm →stackable. las notas con earworm aplican cargas de earworm al impactar. Un personaje con earworm en cada beat genera motivación para el enemigo igual a sus acumulaciones de earworm, después se reducen a la mitad (redondeado hacia abajo) las acumulaciones de earworm.
-Acompañamiento → cuando otra nota del mismo jugador toca una nota con acompañamiento, la otra nota recibe los efectos de acompañamiento.
-Silencio → bloquea el movimiento de esta nota durante X beats. Sinergias con acompañamiento o comprar tiempo.
++ Redondas (Opcional) → aumenta la autoestima en 8
++ Blancas → aumenta la autoestima en 4
++ Negras → aumenta la autoestima en 2
++ Corcheas → aumenta la autoestima en 1
+### Keywords
++ Adagio → avanzan a x0.5 de velocidad. Aplicar adagio a una nota allegro elimina ambas keywords.
++ Allegro → avanzan a x2 de velocidad. Aplicar allegro a una nota adagio, elimina ambas keywords.
++ Forte → Pueden destruir notas enemigas al tocarlas. Al destruir una nota, su categoría de nota baja en 1. Es decir con cada golpe se convertirían en la siguiente a la derecha (blanca → negra → corchea →desaparecer). Opcional: (Solo pueden destruir una nota por beat)
++ Piano → las notas piano no pueden dañar al rival (ni colisionar con otras notas con forte). Algunos instrumentos permiten aplicar esta palabra a notas enemigas o quitarselo a las tuyas. Hay instrumentos que generan estas notas por defecto.
++ Earworm →stackable. las notas con earworm aplican cargas de earworm al impactar. Un personaje con earworm en cada beat genera motivación para el enemigo igual a sus acumulaciones de earworm, después se reducen a la mitad (redondeado hacia abajo) las acumulaciones de earworm.
++ Acompañamiento → cuando otra nota del mismo jugador toca una nota con acompañamiento, la otra nota recibe los efectos de acompañamiento.
++ Silencio → bloquea el movimiento de esta nota durante X beats. Sinergias con acompañamiento o comprar tiempo.
+
 Una nota puede tener forte y piano a la vez. Si esto es así no se chocará con otras notas hasta que se elimine piano.
 
-Instrumentos
-El jugador podrá llevar 3 entre 2 y 4 instrumentos como máximo en todo momento encima. Cada instrumento es único con sus propias estadísticas y forma de generar notas.
-Estadísticas
-Género: Cada instrumento tendrá un género musical asignado con su propio arquetipo. Al tener equipados varios instrumentos del mismo género se aplicarán efectos pasivos dependiendo del género acumulado.
-Cooldown: Beats que tienen que pasar hasta que pueda volver a ser usado.
-Tipo de nota: El tipo de nota que produce el instrumento, puede ser blanca, negra o corchea.
-Número de notas: Número de notas del tipo dicho anteriormente que produce el instrumento en la misma columna de casillas.
-Posición de puesta de notas: Generalmente es justo delante del jugador, pero puede ser en carriles adyacentes o con efectos más especiales.
-Efectos: Si es que los tienen, pueden ser desde efectos pasivos hasta otros que ocurran al usarlos. 
-Efectos de los instrumentos
+## Instrumentos
+El jugador podrá llevar 3 instrumentos como máximo en todo momento encima. Cada instrumento es único con sus propias estadísticas y forma de generar notas.
+### Estadísticas
++ Género: Cada instrumento tendrá un género musical asignado con su propio arquetipo. Al tener equipados varios instrumentos del mismo género se aplicarán efectos pasivos dependiendo del género acumulado.
++ Cooldown: Beats que tienen que pasar hasta que pueda volver a ser usado.
++ Tipo de nota: El tipo de nota que produce el instrumento, puede ser blanca, negra o corchea.
++ Número de notas: Número de notas del tipo dicho anteriormente que produce el instrumento en la misma columna de casillas.
++ Posición de puesta de notas: Generalmente es justo delante del jugador, pero puede ser en carriles adyacentes o con efectos más especiales.
++ Efectos: Si es que los tienen, pueden ser desde efectos pasivos hasta otros que ocurran al usarlos. 
+### Efectos de los instrumentos
 Los siguientes son efectos que contienen multitud de instrumentos. No obstante, los instrumentos pueden tener efectos más complejos.
-Vibrato: Genera un proyectil que recorre una línea entera, al tocar una nota la cambiará de forma aleatoria al carril de arriba o de abajo.
-Sostenuto: Se coloca en la casilla delante del jugador (a menos que se especifique lo contrario). Cada beat generará una nota. Dura 5 beats por defecto. El jugador puede empujarlo como si fuese un bloque de sokoban. Al empujarlo contra la casilla de arriba del todo(de forma que el jugador tendría que acabar su movimiento en esta) el jugador y el sostenuto intercambiarán su posición.
-Tempo: El efecto a continuación de Tempo se gana al usar un instrumento al ritmo. 
-Syncopate: Cuando el jugador se mueve al ritmo, este efecto se aplica inmediatamente. 
-X arriba/abajo: Mueven al jugador X casillas en la dirección indicada.
-Combo X: un instrumento con combo, aplica su efecto cuando tus últimas x acciones fueron al ritmo. Un instrumento puede tener varios efectos de combo con distintas X 
-Grand Finale: un instrumento aplica el efecto a continuación de grand finale si el combate está en sus últimos 20/30 segundos.
-Advance X: te mueve X casillas hacia delante y te ancla en la posición 1-2 beats. Después te devuelve a tu posición original. Generalmente te permitirá usar otros instrumentos en el proceso (sinergiza mejor con instrumentos que lancen todas las notas en el instante inicial pq si las lanza secuencialmente se lanzan mientras vuelves.).
-Idle: tras tocar el instrumento este efecto se aplica hasta que te muevas.
-Ancla: no te permite moverte hasta que finalice su efecto.
-Generador de notas: genera algún tipo de unidad o proyectil que genera notas. Un ejemplo sería un cascabel que lo lanzas y genera notas al caer en una casilla. U otro ejemplo es un lanzador de mininutrias, que deja nutrias en el tablero que producen notas a la vez que se mueven.
++ Vibrato: Genera un proyectil que recorre una línea entera, al tocar una nota la cambiará de forma aleatoria al carril de arriba o de abajo.
++ Sostenuto: Se coloca en la casilla delante del jugador (a menos que se especifique lo contrario). Cada beat generará una nota. Dura 5 beats por defecto. El jugador puede empujarlo como si fuese un bloque de sokoban. Al empujarlo contra la casilla de arriba del todo(de forma que el jugador tendría que acabar su movimiento en esta) el jugador y el sostenuto intercambiarán su posición.
++ Tempo: El efecto a continuación de Tempo se gana al usar un instrumento al ritmo. 
++ Syncopate: Cuando el jugador se mueve al ritmo, este efecto se aplica inmediatamente. 
++ X arriba/abajo: Mueven al jugador X casillas en la dirección indicada.
++ Combo X: un instrumento con combo, aplica su efecto cuando tus últimas x acciones fueron al ritmo. Un instrumento puede tener varios efectos de combo con distintas X 
++ Grand Finale: un instrumento aplica el efecto a continuación de grand finale si el combate está en sus últimos 20/30 segundos.
++ Advance X: te mueve X casillas hacia delante y te ancla en la posición 1-2 beats. Después te devuelve a tu posición original. Generalmente te permitirá usar otros instrumentos en el proceso (sinergiza mejor con instrumentos que lancen todas las notas en el instante inicial pq si las lanza secuencialmente se lanzan mientras vuelves.).
++ Idle: tras tocar el instrumento este efecto se aplica hasta que te muevas.
++ Ancla: no te permite moverte hasta que finalice su efecto.
++ Generador de notas: genera algún tipo de unidad o proyectil que genera notas. Un ejemplo sería un cascabel que lo lanzas y genera notas al caer en una casilla. U otro ejemplo es un lanzador de mininutrias, que deja nutrias en el tablero que producen notas a la vez que se mueven.
 
-Artefactos
+## Artefactos
 Equipamiento que puede obtener Sawa con efectos pasivos muy poderosos. El jugador puede tener artefactos ilimitados, pero lo normal es que no consiga más de 3 o 4 durante una run.
 
-Generación de personaje
-El jugador podrá elegir varias clases antes de comenzar la partida. La clase que escoja determinará su Autoestima Inicial, los instrumentos con los que empieza (ya sean 1 o varios) y sus artefactos iniciales. Pese a empezar con un instrumento el jugador siempre tiene espacio para 3 instrumentos.
-O bien que te toque un artefacto al azar entre una selección de artefactos iniciales y eliges un arma común.
+## Generación de personaje
+2 opciones
++ El jugador podrá elegir varias clases antes de comenzar la partida. La clase que escoja determinará su Autoestima Inicial, los instrumentos con los que empieza (ya sean 1 o varios) y sus artefactos iniciales. Pese a empezar con un instrumento el jugador siempre tiene espacio para 3 instrumentos.
++ Consigues un artefacto al azar entre una selección de artefactos iniciales y eliges un arma común.
 
 
-Mejoras
+## Mejoras
 Las mejoras son complementos que se pueden poner a los instrumentos, cada instrumento puede tener una mejora. Las mejoras pueden modificar los 3 siguientes parámetros de un instrumento:
-Tipo de nota: +1 / +2 (si poderosa)
-Número de notas +1 / +2 (si poderosa)
-Cooldown -1 / -2 (si poderosa)
-aplicar una keyword a las notas producidas
-otros efectos
++ Tipo de nota: +1 / +2 (si poderosa)
++ Número de notas +1 / +2 (si poderosa)
++ Cooldown -1 / -2 (si poderosa)
++ aplicar una keyword a las notas producidas
++ otros efectos
+
 Una mejora puede mejorar sutilmente el instrumento, o hacerlo mucho más poderoso pero con algún drawback. Las mejoras se generan de manera aleatoria. Si son simples, tendrán el efecto de la izquierda, pero si son poderosas tendrán el efecto positivo de la derecha, pero el inverso de la izquierda de otra categoría.
 
-Ejemplos:
-Mejora Simple: Mejora de nota +1 (si son corcheas, pasa a lanzar negras)
-Mejora poderosa: Cooldown -2, -1 número de notas(si lanzaba 2 ahora lanza 1)
+### Ejemplos:
++ Mejora Simple: Mejora de nota +1 (si son corcheas, pasa a lanzar negras)
++ Mejora poderosa: Cooldown -2, -1 número de notas(si lanzaba 2 ahora lanza 1)
 
-Recompensas
+## Recompensas
 Tras cada combate el jugador ganará conchas proporcionalmente la autoestima respecto la del rival, una recompensa al azar y además podrá elegir 1 de 2 fans que le darán cada uno una selección de recompensas igual a las marcas de autoestima que se hayan superado en el combate. Cada tipo de recompensa solo aparecerá una vez tras cada combate, es decir no puede haber tipos de recompensa duplicados en una misma pantallas de recompensas.
-Tipos de recompensas
-Conchas: Una cantidad generosa de conchas, te permiten comprar cosas
-Elección de instrumento: Un nuevo instrumento a elegir entre 3
-Elección de instrumento por género: Sólo aparecerá antes del combate contra el boss si tienes varios instrumentos del mismo género.
-Mejoras: Una mejora que podrás aplicar a uno de tus instrumentos
-Artefactos: Un objeto con un efecto pasivo muy poderoso
-Compra de Instrumentos: Tendrá disponibles 3 instrumentos de entre todos los disponibles al azar, puedes adquirir uno o varios. Puedes vender los instrumentos que ya no te hagan falta por una cantidad mínima de conchas
-Compra de mejoras: Tiene 3 mejoras generadas automáticamente al azar, puedes adquirir una o varias y aplicarla a uno de tus instrumentos
-Compra de artefactos: Tiene 3 artefactos de entre todos los disponibles (que no tengas ya) al azar, puedes adquirir uno o varios. Esta tienda es más cara que las 2 anteriores.
+### Tipos de recompensas
++ Conchas: Una cantidad generosa de conchas, te permiten comprar cosas
++ Elección de instrumento: Un nuevo instrumento a elegir entre 3
++ Elección de instrumento por género: Sólo aparecerá antes del combate contra el boss si tienes varios instrumentos del mismo género.
++ Mejoras: Una mejora que podrás aplicar a uno de tus instrumentos
++ Artefactos: Un objeto con un efecto pasivo muy poderoso
++ Compra de Instrumentos: Tendrá disponibles 3 instrumentos de entre todos los disponibles al azar, puedes adquirir uno o varios. Puedes vender los instrumentos que ya no te hagan falta por una cantidad mínima de conchas
++ Compra de mejoras: Tiene 3 mejoras generadas automáticamente al azar, puedes adquirir una o varias y aplicarla a uno de tus instrumentos
++ Compra de artefactos: Tiene 3 artefactos de entre todos los disponibles (que no tengas ya) al azar, puedes adquirir uno o varios. Esta tienda es más cara que las 2 anteriores.
 
 
-Menús
+## Menús
 Menú principal
-Jugar
-Pulsar ESC → Menú de Pausa
-Música (subir o bajar el volumen)
-Silenciar (apaga la música por completo)
-Asignar Botones (permite configurar con que botones se pueden hacer las cosas)
-Volver a empezar (reinicia la partida, hace lo mismo que el botón jugar del menú principal)
-Salir al menú principal
-Atrás
-Opciones
-Música (subir o bajar el volumen)
-Silenciar
-Asignar Botones
-Atrás
-Salir
++ Jugar
+  + Pulsar ESC
+    + Menú de Pausa 
+      + Música (subir o bajar el volumen)
+      + Silenciar (apaga la música por completo)
+      + Asignar Botones (permite configurar con que botones se pueden hacer las cosas)
+      + Volver a empezar (reinicia la partida, hace lo mismo que el botón jugar del menú principal)
+      + Salir al menú principal
+      + Atrás
++ Opciones
+  + Música (subir o bajar el volumen)
+  + Silenciar
+  + Asignar Botones
+  + Atrás
++ Salir
 
 Estética
 Historia
