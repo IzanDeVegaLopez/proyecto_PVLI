@@ -5,16 +5,19 @@ import Clock from './clock.js';
 //La declaro aquí para que tenga acceso todo el archivo
 let player;
 let KEYS;
+let deltaTime;
+export {deltaTime};
 
 /*Escena de Phaser*/
 export default class combatScene extends Phaser.Scene {
-
+    lastFrameTime;
     /**
      * @todo hacer el juego resizeable, tutorial -> https://medium.com/@tajammalmaqbool11/full-screen-size-and-responsive-game-in-phaser-3-e563c2d60eab
      */
 
     constructor(){
         super({key: "menu"});
+        this.lastFrameTime = new Date();
     }
 
     init(){
@@ -33,7 +36,7 @@ export default class combatScene extends Phaser.Scene {
 
         
         //iniciar el clock con los BPM como parametro
-        new Clock(this, 160);
+        new Clock(this, 120);
     }
 
     /**
@@ -56,6 +59,8 @@ export default class combatScene extends Phaser.Scene {
     }
 
     update(){
+        deltaTime = new Date() - this.lastFrameTime;
+        this.lastFrameTime = new Date();
         //Ejemplo de como llamar ejecutar funciones cuando una tecla se pulse (solo se ejecuta una vez por cada pulsación de tecla)
         //KEYS.UP.isDown se puede usar si queremos hacerlo mientras se mantenga pulsado
         if (Phaser.Input.Keyboard.JustDown(KEYS.UP)) {
