@@ -161,9 +161,9 @@ El estilo de dibujo es adorable, cute, kawai. De colores pastel y esponjoso. Por
 
 
 ## Referencias
-### One step from Eden (Thomas Moon Kang, 2020)→ Inspirado el sistema de cuadrícula, bullet hell y varios efectos
-### Crypt of the Necrodancer (Brace Yourself Games, 2015) → Sistema de ritmo 
-### Slay the spire (Mega Crit, 2019) → Artefactos
-### Monster train (Shiny Show, 2020) → Sistema de recompensas
-### Guitar hero (Activison-Neversoft, 2005)→ Notas musicales por carriles
-### Zenless Zone Zero (miHOYO, 2024) → Sostenuto con comportamiento similar a bloque de Sokoban
++ One step from Eden (Thomas Moon Kang, 2020)→ Inspirado el sistema de cuadrícula, bullet hell y varios efectos
++ Crypt of the Necrodancer (Brace Yourself Games, 2015) → Sistema de ritmo 
++ Slay the spire (Mega Crit, 2019) → Artefactos
++ Monster train (Shiny Show, 2020) → Sistema de recompensas
++ Guitar hero (Activison-Neversoft, 2005)→ Notas musicales por carriles
++ Zenless Zone Zero (miHOYO, 2024) → Sostenuto con comportamiento similar a bloque de Sokoban
