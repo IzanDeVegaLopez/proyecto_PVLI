@@ -1,9 +1,9 @@
 /**Is doubled cause it checks 50 ms before and 50 after the beat */
-const tempoErrorMargin = 50;
+const tempoErrorMargin = 75;
 
 export default class Clock{
     beatFunctions = [];
-
+    lastPress;
     delayTimer;
     /**last Beat timer */
     lastBeat;
@@ -24,6 +24,8 @@ export default class Clock{
         this.timerEvent = scene.timerEvent;
         
         this.lastBeat = new Date();
+
+        this.lastPress = new Date();
     }
 
     /**Pauses clock */
@@ -52,13 +54,15 @@ export default class Clock{
 
     /** returns time till next Beat */
     getTimeTillBeat(){
-        return new Date - this.lastBeat;
+        return new Date - (this.delayTimer - this.lastBeat);
     }
 
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
-        let timeTillBeat = this.getTimeTillBeat()
-        return (timeTillBeat < tempoErrorMargin || timeTillBeat > this.delayTimer - tempoErrorMargin);
+        let timeTillNextBeat = this.getTimeTillBeat()
+        let auxBool = ((new Date() - this.lastPress > this.delayTimer/2) && (timeTillNextBeat < tempoErrorMargin || timeTillNextBeat > this.delayTimer - tempoErrorMargin));
+        this.lastPress = new Date();
+        return auxBool;
     }
     /** Necesita que las funciones que le pasen como parametro esten seguidas de .bind(this), si no las funciones cambian de contexto y explota todo*/
     addBeatFunction(newFunc){

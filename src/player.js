@@ -58,7 +58,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
      * @param {*} y las posiciones a mover al player hacia abajo
      */
     Move(xAdd, yAdd){
-        if(clockInstance.isTempo() && (new Date() - this.lastPress) > clockInstance.delayTimer/2) this.Syncopate();
+        if(clockInstance.isTempo()) this.Syncopate();
 
         this.lastPress = new Date();
         //Cambia la posición en x del player y hace que los limites para moverse horizontalmente sean las casillas definidas en limitPositions
@@ -78,7 +78,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
 
     PlayInstrument(numeroInstrumento){
-        if(clockInstance.isTempo() && (new Date() - this.lastPress) > clockInstance.delayTimer/2) this.Tempo();
+        if(clockInstance.isTempo()) this.Tempo();
 
         this.lastPress = new Date();
         //Previene que se intente tocar un instrumento en los slots en los que no hay instrumento
