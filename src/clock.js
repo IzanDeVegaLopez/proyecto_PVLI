@@ -1,13 +1,9 @@
-
+/**Is doubled cause it checks 50 ms before and 50 after the beat */
 const tempoErrorMargin = 50;
 
-/**@todo esta clase genera las flechitas que se van moviendo y las mueve al ritmo de la música */
-export default class Clock extends Phaser.GameObjects.Image{
-    /**Static reference to the clock (Singleton Pattern) */
-    static clockInstance;
+export default class Clock{
 
-    /**ms passed between beats */
-    delayTimer;
+    //delayTimer;
     /**last Beat timer */
     lastBeat;
     /**Phaser timerEvent instance */
@@ -17,20 +13,14 @@ export default class Clock extends Phaser.GameObjects.Image{
     /**when the clock is paused this variable stores the clock progress  */
     pausedClockProgress;
     constructor(scene, BPM){
-        super(scene, 0, 0, 'clock');
-        //Singleton Pattern
-        if(this.clockInstance == undefined){
-            this.clockInstance = this;
-        }else{
-            this.destroy();
-        }
+        delayTimer = 1000 /(BPM/60);
 
-        this.delayTimer = 1000 /(BPM/60);
+        scene.clockConfig = {delay: delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
+        this.clockConfig = scene.clockConfig;
+        
 
-        this.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false}
-        console.log(this.clockConfig.delay);
-
-        this.timerEvent = scene.time.addEvent(this.clockConfig);
+        scene.timerEvent = scene.time.addEvent(scene.clockConfig);
+        this.timerEvent = scene.timerEvent;
         
         this.lastBeat = new Date();
     }
@@ -64,6 +54,11 @@ export default class Clock extends Phaser.GameObjects.Image{
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
         let timeTillBeat = this.getTimeTillBeat()
-        return (timeTillBeat < tempoErrorMargin || timeTillBeat > this.delayTimer - tempoErrorMargin);
+        return (timeTillBeat < tempoErrorMargin || timeTillBeat > delayTimer - tempoErrorMargin);
     }
 }
+
+let delayTimer;
+
+
+export {delayTimer};

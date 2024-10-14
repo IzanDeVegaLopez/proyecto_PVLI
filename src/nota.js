@@ -1,4 +1,5 @@
 import { tile00PositionX, tile00PositionY,  tileDiffX, tileDiffY } from "./tileData.js";
+import {delayTimer} from "./clock.js";
 
 const notas = {
     0:{
@@ -13,6 +14,7 @@ const notas = {
 };
 
 export default class Nota extends Phaser.GameObjects.Sprite{
+    lastFrameTime;
     /** Contiene uno de los objetos de notas (la array-like object de arriba) */
     tipoNota;
     /** Contiene la velocidad en compases por beat */
@@ -38,6 +40,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
         this.direction = direction;
+        this.lastFrameTime = new Date();
     }
 
     preUpdate(){
@@ -46,14 +49,15 @@ export default class Nota extends Phaser.GameObjects.Sprite{
 
     /**Move forward the note until it gets out of board*/
     MoveForward(){
-        /**@todo hacer que se mueva dependiendo del delta time y la velocidad de los beats
-         * Habrá que buscar una manera de implementar el delta time que no implique ponerle contadores a todas las notas
+        let deltaTime = new Date() - this.lastFrameTime;
+        /**@Habrá que buscar una manera de implementar el delta time que no implique ponerle contadores a todas las notas
          */
-        this.x += this.direction * (tileDiffX()/(this.speed * 60));
+        this.x += this.direction * deltaTime/1000 *((this.speed * tileDiffX()) / (delayTimer/1000));
         //Si se sale por la derecha destruir (o igual esto es mejor hacerlo con un trigger en esa zona)
         /**@todo investigar si hacer con un trigger en vez de por coordenadas */
         if(this.x > tile00PositionX() + 6.3 * tileDiffX()){
             this.destroy();
         }
+        this.lastFrameTime = new Date();
     }
 }
