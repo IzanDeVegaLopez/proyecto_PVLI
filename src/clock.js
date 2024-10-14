@@ -2,8 +2,9 @@
 const tempoErrorMargin = 50;
 
 export default class Clock{
+    beatFunctions = [];
 
-    //delayTimer;
+    delayTimer;
     /**last Beat timer */
     lastBeat;
     /**Phaser timerEvent instance */
@@ -13,9 +14,9 @@ export default class Clock{
     /**when the clock is paused this variable stores the clock progress  */
     pausedClockProgress;
     constructor(scene, BPM){
-        delayTimer = 1000 /(BPM/60);
+        this.delayTimer = 1000 /(BPM/60);
 
-        scene.clockConfig = {delay: delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
+        scene.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
         this.clockConfig = scene.clockConfig;
         
 
@@ -44,6 +45,9 @@ export default class Clock{
     UpdateLastBeat(){
         this.lastBeat = new Date();
         console.log("miau");
+        //calls all beat Functions
+        this.beatFunctions.forEach( (func) => {func()} );
+        /**@todo incluir un array con todas las funciones a llamarse al pasar un pulso */
     }
 
     /** returns time till next Beat */
@@ -54,11 +58,10 @@ export default class Clock{
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
         let timeTillBeat = this.getTimeTillBeat()
-        return (timeTillBeat < tempoErrorMargin || timeTillBeat > delayTimer - tempoErrorMargin);
+        return (timeTillBeat < tempoErrorMargin || timeTillBeat > this.delayTimer - tempoErrorMargin);
+    }
+    /** Necesita que las funciones que le pasen como parametro esten seguidas de .bind(this), si no las funciones cambian de contexto y explota todo*/
+    addBeatFunction(newFunc){
+        this.beatFunctions.push(newFunc);
     }
 }
-
-let delayTimer;
-
-
-export {delayTimer};

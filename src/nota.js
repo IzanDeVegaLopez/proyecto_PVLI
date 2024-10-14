@@ -1,6 +1,5 @@
 import { tile00PositionX, tile00PositionY,  tileDiffX, tileDiffY } from "./tileData.js";
-import {delayTimer} from "./clock.js";
-import {deltaTime} from "./combatScene.js"
+import {deltaTime, clockInstance} from "./combatScene.js"
 
 const notas = {
     0:{
@@ -50,7 +49,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     MoveForward(){
         /** @todo Habrá que buscar una manera de implementar el delta time que no implique ponerle contadores a todas las notas
          */
-        this.x += this.direction * deltaTime/1000 *((this.speed * tileDiffX()) / (delayTimer/1000));
+        this.x += this.direction * deltaTime/1000 *((this.speed * tileDiffX()) / (clockInstance.delayTimer/1000));
         //Si se sale por la derecha destruir (o igual esto es mejor hacerlo con un trigger en esa zona)
         /**@todo investigar si hacer con un trigger en vez de por coordenadas */
         if(this.x > tile00PositionX() + 6.3 * tileDiffX()){

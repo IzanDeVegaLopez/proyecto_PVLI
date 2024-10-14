@@ -6,7 +6,8 @@ import Clock from './clock.js';
 let player;
 let KEYS;
 let deltaTime;
-export {deltaTime};
+let clockInstance;
+export {deltaTime, clockInstance};
 
 /*Escena de Phaser*/
 export default class combatScene extends Phaser.Scene {
@@ -36,7 +37,7 @@ export default class combatScene extends Phaser.Scene {
 
         
         //iniciar el clock con los BPM como parametro
-        new Clock(this, 120);
+        clockInstance = new Clock(this, 120);
     }
 
     /**
@@ -49,8 +50,6 @@ export default class combatScene extends Phaser.Scene {
 
         //Create fondo
         this.add.image(0,0,"fondo").setDisplaySize(this.game.scale.width, this.game.scale.height).setOrigin(0,0);
-
-
         //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
         player = new Player(this);
         player.setOrigin();
