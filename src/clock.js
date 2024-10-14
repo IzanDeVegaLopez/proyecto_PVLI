@@ -25,9 +25,9 @@ export default class Clock extends Phaser.GameObjects.Image{
             this.destroy();
         }
 
-        this.delayTimer = 1000/(BPM/60);
+        this.delayTimer = 1000 /(BPM/60);
 
-        this.clockConfig = {delay: dalayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false}
+        this.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false}
         console.log(this.clockConfig.delay);
 
         this.timerEvent = scene.time.addEvent(this.clockConfig);
@@ -64,6 +64,6 @@ export default class Clock extends Phaser.GameObjects.Image{
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
         let timeTillBeat = this.getTimeTillBeat()
-        return (timeTillBeat < tempoErrorMargin || timeTillBeat > delayTimer - tempoErrorMargin);
+        return (timeTillBeat < tempoErrorMargin || timeTillBeat > this.delayTimer - tempoErrorMargin);
     }
 }
