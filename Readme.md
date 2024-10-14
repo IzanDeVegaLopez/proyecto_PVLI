@@ -10,8 +10,11 @@ ${\textbf{
 talento con multiples instrumentos
 }}$
 
-## $\color{rgb(118,165,175)} {\textbf{RedesSociales}}$
+## $\color{rgb(230,145,56)} {\textbf{RedesSociales}}$
 [Twitter](https://x.com/FathomGames1)
 [Discord](https://discord.gg/Fqsc9G9W)
 [Youtube](https://www.youtube.com/channel/UCYzZh8CjlzoX60kzE2s3ylw)
 [Instagram](https://www.instagram.com/fathomgames1/)
+
+## $\color{rgb(230,145,56)} {\textbf{Historia}}$
+Este juego es un proyecto de estudiantes universitarios en 2º año de la carrera de Desarrollo de Videojuegos en la UCM para la asignatura Programación de Videojuegos en Lenguajes Interpretados (PVLI) durante el curso 2024-2025
