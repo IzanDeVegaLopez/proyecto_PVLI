@@ -42,11 +42,6 @@ La representación de la autoestima es un medidor compartido que empieza al 50% 
 
 Hay marcas cuando la ventaja es del 30, 60 %. Y al acabar un combate se consiguen mejores recompensas por cada marca. 
 
-El jugador y el rival tienen una cantidad concreta de puntos de autoestima visibles en todo momento. Cuando una nota del rival impacte contra el jugador su autoestima se reducirá en función de la nota que le impacte y viceversa. 
-
-Cuando el jugador es golpeado este recibe unos instantes de invulnerabilidad. Esto no ocurre al golpear al enemigo.
-
-
 ### Ritmo
 Cada enemigo tiene un ritmo. Esto es el latido constante de la música que suena al enfrentarte a él, a partir de ahora beat. 
 
@@ -131,10 +126,11 @@ Tras cada combate el jugador ganará conchas proporcionalmente la autoestima res
 + Elección de instrumento por género: Sólo aparecerá antes del combate contra el boss si tienes varios instrumentos del mismo género.
 + Mejoras: Una mejora que podrás aplicar a uno de tus instrumentos
 + Artefactos: Un objeto con un efecto pasivo muy poderoso
-+ Compra de Instrumentos: Tendrá disponibles 3 instrumentos de entre todos los disponibles al azar, puedes adquirir uno o varios. Puedes vender los instrumentos que ya no te hagan falta por una cantidad mínima de conchas
++ Compra de Instrumentos: Tendrá disponibles 3 instrumentos de entre todos los disponibles al azar, puedes adquirir uno o varios.
 + Compra de mejoras: Tiene 3 mejoras generadas automáticamente al azar, puedes adquirir una o varias y aplicarla a uno de tus instrumentos
 + Compra de artefactos: Tiene 3 artefactos de entre todos los disponibles (que no tengas ya) al azar, puedes adquirir uno o varios. Esta tienda es más cara que las 2 anteriores.
 
+Todas las Tiendas/ compra de … tienen un botón para rerollear los instrumentos/mejoras/artefactos que hayan salido por un módico precio.
 
 ## Menús
 Menú principal
