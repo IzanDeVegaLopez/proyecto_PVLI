@@ -1,4 +1,5 @@
 # $\color{rgb(118,165,175)} {\textbf{Sawa's Song}}$
+![Screenshot of Sawa's Song game](assets/img/Sawa'sSongGameImage.png)
 ${\textbf{
 Sawa es una nutria de agua dulce dispuesta a ganar la batalla musical más importante de todas las aguas. 
 }}$
