@@ -16,10 +16,18 @@ const notas = {
 export default class Nota extends Phaser.GameObjects.Sprite{
     /** Contiene uno de los objetos de notas (la array-like object de arriba) */
     tipoNota;
-    /** Contiene la velocidad en compases por beat */
+    /** Contiene la velocidad en compases por beat, 
+     * usando basespeed y speed para calculos  */
+    basespeed;
     speed;
     //Dirección hacia la que avanza la nota
     direction;
+    //La cantidad de daño de veneno que contiene la nota
+    poison;
+    //cantidad de tiempo que se queda parado
+    waittime;
+    /**También creo una variable de quedarse quieto 
+    y hasta que se acabe el tiempo, el speed será 0*/
     /**
      * @param {*} scene la escena en la que se genera la nota
      * @param {*} posX x de la casilla en la que se genera la nota
@@ -38,6 +46,8 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
         this.direction = direction;
+        this.poison =0;
+        this.waittime=0;
 
         //takes the event postupdate from the scene and makes this function postUpdate be called when received
         this.scene.events.on('postupdate', this.postUpdate.bind(this));
@@ -46,7 +56,12 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //After each update moves note forward
     //this needs to be done because deltaTime is not defined until the first update
     postUpdate(){
-        this.MoveForward();
+        if(this.waittime==0)
+        {
+        this.MoveForward(); 
+        }
+        else{this.waittime-1;}
+
     }
 
     /**Move forward the note until it gets out of board*/
@@ -59,5 +74,17 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         if(this.x > tile00PositionX() + 6.3 * tileDiffX()){
             this.destroy();
         }
+    }
+    /* ChangePoison se usa tanto para añadir como para quitar 
+    el efecto de veneno */
+    ChangePoison( cantidad)
+    {
+        this. poison+=cantidad;
+
+    }
+    //ChangeWaitTime se usa para añadir o quitar tiempo de espera
+    ChangeWaitTime(cantidad)
+    {
+        this.waittime+=cantidad
     }
 }
