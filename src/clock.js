@@ -1,5 +1,7 @@
+import { clockInstance } from "./combatScene.js";
+
 /**Is doubled cause it checks 50 ms before and 50 after the beat */
-const tempoErrorMargin = 75;
+const tempoErrorMargin = 50;
 
 export default class Clock{
     beatFunctions = [];
@@ -46,7 +48,7 @@ export default class Clock{
     /**Updates the last beat timer */
     UpdateLastBeat(){
         this.lastBeat = new Date();
-        console.log("miau");
+        //console.log("miau");
         //calls all beat Functions
         this.beatFunctions.forEach( (func) => {func()} );
         /**@todo incluir un array con todas las funciones a llamarse al pasar un pulso */
@@ -54,12 +56,12 @@ export default class Clock{
 
     /** returns time till next Beat */
     getTimeTillBeat(){
-        return new Date - (this.delayTimer - this.lastBeat);
+        return (new Date() - this.lastBeat);
     }
 
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
-        let timeTillNextBeat = this.getTimeTillBeat()
+        let timeTillNextBeat = this.getTimeTillBeat();
         let auxBool = ((new Date() - this.lastPress > this.delayTimer/2) && (timeTillNextBeat < tempoErrorMargin || timeTillNextBeat > this.delayTimer - tempoErrorMargin));
         this.lastPress = new Date();
         return auxBool;

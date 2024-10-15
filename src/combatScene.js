@@ -1,6 +1,7 @@
 import {KEY_BINDINGS} from './inputKeys.js';
 import Player from './player.js';
 import Clock from './clock.js';
+import RhythmMarker from './rhythmMarker.js';
 
 //La declaro aquí para que tenga acceso todo el archivo
 let player;
@@ -30,6 +31,7 @@ export default class combatScene extends Phaser.Scene {
         this.load.image("sawa", "./assets/img/fathomgames500px.png");
         /**Todo cambiar clock por la imagen de las notitas que bajan hasta el punto correcto*/
         this.load.image("clock", "./assets/img/discord.png");
+        this.load.image("rhythmMarker", "./assets/img/rhythmMarker.png");
         /**
          * @todo loadear imagenes de las notas
          */
@@ -54,6 +56,9 @@ export default class combatScene extends Phaser.Scene {
         player = new Player(this);
         player.setOrigin();
         player.setDisplaySize(100,100);
+
+        //Crea los marcadores de ritmo
+        new RhythmMarker(this, 3);
         
     }
 
