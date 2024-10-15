@@ -1,4 +1,5 @@
 import { tile00PositionX, tile00PositionY,  tileDiffX, tileDiffY } from "./tileData.js";
+import {deltaTime, clockInstance} from "./combatScene.js"
 
 const notas = {
     0:{
@@ -20,11 +21,10 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //Dirección hacia la que avanza la nota
     direction;
     /**
-     * 
      * @param {*} scene la escena en la que se genera la nota
      * @param {*} posX x de la casilla en la que se genera la nota
      * @param {*} posY y de la casilla en la que se genera la nota
-     * @param {*} notaNumber 0 para corchea, 1 para negra y 2 para blanca
+     * @param {*} tipoNota 0 para corchea, 1 para negra y 2 para blanca
      * @param {*} direction 1 si es la lanza el jugador, -1 si la lanza el enemigo
      */
     constructor(scene, posX, posY, tipoNota, direction){
@@ -38,18 +38,22 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
         this.direction = direction;
+
+        //takes the event postupdate from the scene and makes this function postUpdate be called when received
+        this.scene.events.on('postupdate', this.postUpdate.bind(this));
     }
 
-    preUpdate(){
+    //After each update moves note forward
+    //this needs to be done because deltaTime is not defined until the first update
+    postUpdate(){
         this.MoveForward();
     }
 
     /**Move forward the note until it gets out of board*/
     MoveForward(){
-        /**@todo hacer que se mueva dependiendo del delta time y la velocidad de los beats
-         * Habrá que buscar una manera de implementar el delta time que no implique ponerle contadores a todas las notas
+        /** @todo Habrá que buscar una manera de implementar el delta time que no implique ponerle contadores a todas las notas
          */
-        this.x += this.direction * (tileDiffX()/(this.speed * 60));
+        this.x += this.direction * deltaTime/1000 *((this.speed * tileDiffX()) / (clockInstance.delayTimer/1000));
         //Si se sale por la derecha destruir (o igual esto es mejor hacerlo con un trigger en esa zona)
         /**@todo investigar si hacer con un trigger en vez de por coordenadas */
         if(this.x > tile00PositionX() + 6.3 * tileDiffX()){

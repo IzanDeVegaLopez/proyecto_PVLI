@@ -7,9 +7,6 @@ let config = {
     type: Phaser.AUTO,
     width:  1320,
     height: 720,
-    /**
-     * @type {boolean}
-     */
     pixelArt: true,
     scale: {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY

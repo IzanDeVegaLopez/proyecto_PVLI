@@ -16,5 +16,5 @@ export function tileDiffX(){
 }
 /** returns the difference between the centers of the tiles in the y axis*/
 export function tileDiffY(){
-    return 90;
+    return 95;
 }
