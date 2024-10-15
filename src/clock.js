@@ -1,12 +1,12 @@
-import { clockInstance } from "./combatScene.js";
-
-/**Is doubled cause it checks 50 ms before and 50 after the beat */
+/**Is doubled cause it checks this time before and after the beat */
 const tempoErrorMargin = 75;
 
 export default class Clock{
+    /** time of the last key Pressed, updated with isTempo */
     lastPress;
+    /** ms between beats */
     delayTimer;
-    /**last Beat timer */
+    /** last Beat time */
     lastBeat;
     /**Phaser timerEvent instance */
     timerEvent;
@@ -26,10 +26,10 @@ export default class Clock{
         scene.timerEvent = scene.time.addEvent(scene.clockConfig);
         this.timerEvent = scene.timerEvent;
         
-        this.lastBeat = new Date();
+        //inicializar variables de tiempo
+        this.lastPress = this.lastBeat = new Date();
 
-        this.lastPress = new Date();
-
+        //Crea un event emitter para notificar a otros objetos de cada beat
         this.eventEmitter = new Phaser.Events.EventEmitter();
     }
 
