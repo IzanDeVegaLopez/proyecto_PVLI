@@ -39,9 +39,11 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
         this.direction = direction;
+
+        this.scene.events.on('postupdate', this.postUpdate.bind(this));
     }
 
-    preUpdate(){
+    postUpdate(){
         this.MoveForward();
     }
 

@@ -49,8 +49,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
         /**@todo incluir los instrumentos correspondientes */
         this.instrumentos = [instrumento1, instrumento2];
         this.clockReference = clock;
-        this.lastPress = 0;
-        clockInstance.addBeatFunction(this.BeatFunction.bind(this));
+    
+        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
     }
     /**
      * 
@@ -89,16 +89,13 @@ export default class Player extends Phaser.GameObjects.Sprite{
     /**Produce todos los efectos de syncopate al moverse al ritmo*/
     Syncopate(){
         console.log("syncopate");
-        this.presses = 2;
     }
     /**Produce todos los efectos no específicos de instrumentos al tocar al ritmo */
     Tempo(){
         console.log("tempo");
-        this.presses = 2;
     }
 
     /**Funciones a llamar cada vez que haya un pulso */
     BeatFunction(){
-        this.presses = 0;
     }
 }

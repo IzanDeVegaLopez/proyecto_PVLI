@@ -1,10 +1,9 @@
 import { clockInstance } from "./combatScene.js";
 
 /**Is doubled cause it checks 50 ms before and 50 after the beat */
-const tempoErrorMargin = 50;
+const tempoErrorMargin = 75;
 
 export default class Clock{
-    beatFunctions = [];
     lastPress;
     delayTimer;
     /**last Beat timer */
@@ -15,6 +14,8 @@ export default class Clock{
     clockConfig;
     /**when the clock is paused this variable stores the clock progress  */
     pausedClockProgress;
+    /**para llamar a los eventos correspondientes que se deberían llamar con el ritmo en los diferentes objetos */
+    eventEmitter;
     constructor(scene, BPM){
         this.delayTimer = 1000 /(BPM/60);
 
@@ -28,6 +29,8 @@ export default class Clock{
         this.lastBeat = new Date();
 
         this.lastPress = new Date();
+
+        this.eventEmitter = new Phaser.Events.EventEmitter();
     }
 
     /**Pauses clock */
@@ -48,26 +51,19 @@ export default class Clock{
     /**Updates the last beat timer */
     UpdateLastBeat(){
         this.lastBeat = new Date();
-        //console.log("miau");
-        //calls all beat Functions
-        this.beatFunctions.forEach( (func) => {func()} );
-        /**@todo incluir un array con todas las funciones a llamarse al pasar un pulso */
+        this.eventEmitter.emit("BeatNow");
     }
 
     /** returns time till next Beat */
-    getTimeTillBeat(){
+    getTimeSinceBeat(){
         return (new Date() - this.lastBeat);
     }
 
     /**Returns if when this is called it can be considered to the rhythm */
     isTempo(){
-        let timeTillNextBeat = this.getTimeTillBeat();
+        let timeTillNextBeat = this.getTimeSinceBeat();
         let auxBool = ((new Date() - this.lastPress > this.delayTimer/2) && (timeTillNextBeat < tempoErrorMargin || timeTillNextBeat > this.delayTimer - tempoErrorMargin));
         this.lastPress = new Date();
         return auxBool;
-    }
-    /** Necesita que las funciones que le pasen como parametro esten seguidas de .bind(this), si no las funciones cambian de contexto y explota todo*/
-    addBeatFunction(newFunc){
-        this.beatFunctions.push(newFunc);
     }
 }
