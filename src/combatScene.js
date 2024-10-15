@@ -59,7 +59,7 @@ export default class combatScene extends Phaser.Scene {
 
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);
-        
+
     }
 
     update(){
