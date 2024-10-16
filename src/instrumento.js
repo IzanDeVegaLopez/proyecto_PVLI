@@ -51,7 +51,6 @@ export default class Instrumento{
 
     /**returns if the cooldown of this instrument exists */
     CanBePlayed(){
-        console.log(this.baseCooldown);
         return (this.actualCooldown <= 0);
     }
 }

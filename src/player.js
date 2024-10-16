@@ -77,7 +77,6 @@ export default class Player extends Phaser.GameObjects.Sprite{
     PlayInstrument(numeroInstrumento){
         //console.log(this.instrumentos[numeroInstrumento].CanBePlayed);
         if(this.instrumentos[numeroInstrumento]!=undefined && this.instrumentos[numeroInstrumento].CanBePlayed()){
-            console.log("tocado");
             if(clockInstance.isTempo()) 
                 this.Tempo();
             this.instrumentos[numeroInstrumento].Play(this.scene, this.position.x, this.position.y);
