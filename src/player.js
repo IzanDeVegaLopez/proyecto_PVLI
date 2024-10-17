@@ -6,9 +6,6 @@ import { clockInstance } from "./combatScene.js";
  * Luego player y enemy heredan de la clase character
  */
 
-/** @todo Mover todos los instrumentos a ficheros y eliminar estos de aquí. Hacer que extiendan de la clase instrumento*/
-const instrumento1 = new Instrumento(0,0,1,1);
-const instrumento2 = new Instrumento(0,-1,1,1);
 
 //Clase player tiene todas las funciones de movimiento, toca instrumentos y demás
 //extiende de sprite para usar su cuerpo físico y cambiar la posición y animaciones del personaje según sus acciones
@@ -23,14 +20,10 @@ export default class Player extends Phaser.GameObjects.Sprite{
     limitPositions;
     /**Contiene los 3 instrumentos del player */
     instrumentos;
-    clockReference;
-    //Stores key Presses on this beat
-    lastPress;
-
     /**
      * @param {*} scene la escena en la que está el personaje
      */
-    constructor(scene, clock){
+    constructor(scene, instrumento1 = undefined, instrumento2 = undefined, instrumento3 = undefined){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
         super(scene, tile00PositionX(), tile00PositionY(), 'sawa');
         //Añade este sprite a la escena
@@ -47,10 +40,9 @@ export default class Player extends Phaser.GameObjects.Sprite{
         };
         this.UpdatePos();
         /**@todo incluir los instrumentos correspondientes */
-        this.instrumentos = [instrumento1, instrumento2];
-        this.clockReference = clock;
+        this.instrumentos = [instrumento1, instrumento2, instrumento3];
     
-        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
+        //clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
     }
     /**
      * 
@@ -78,12 +70,14 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
 
     PlayInstrument(numeroInstrumento){
-        if(clockInstance.isTempo()) this.Tempo();
-
-        this.lastPress = new Date();
-        //Previene que se intente tocar un instrumento en los slots en los que no hay instrumento
-        if(this.instrumentos[numeroInstrumento]!=undefined)
+        //console.log(this.instrumentos[numeroInstrumento].CanBePlayed);
+        if(this.instrumentos[numeroInstrumento]!=undefined && this.instrumentos[numeroInstrumento].CanBePlayed()){
+            if(clockInstance.isTempo()) 
+                this.Tempo();
             this.instrumentos[numeroInstrumento].Play(this.scene, this.position.x, this.position.y);
+        }
+
+
     }
 
     /**Produce todos los efectos de syncopate al moverse al ritmo*/
@@ -93,9 +87,5 @@ export default class Player extends Phaser.GameObjects.Sprite{
     /**Produce todos los efectos no específicos de instrumentos al tocar al ritmo */
     Tempo(){
         console.log("tempo");
-    }
-
-    /**Funciones a llamar cada vez que haya un pulso */
-    BeatFunction(){
     }
 }
