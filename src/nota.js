@@ -24,10 +24,18 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     direction;
     //La cantidad de daño de veneno que contiene la nota
     poison;
-    //cantidad de tiempo que se queda parado
+    //cantidad de tiempo que se queda parado (Se llama silencio en el GDD)
     waittime;
     /**También creo una variable de quedarse quieto 
     y hasta que se acabe el tiempo, el speed será 0*/
+    //booleanos para velocidad
+    allergo;
+    adagio;
+    // notas fantasma
+    piano;
+    // notas destuctoras (al colisionar con enemigas las destruyen)
+    forte;
+
     /**
      * @param {*} scene la escena en la que se genera la nota
      * @param {*} posX x de la casilla en la que se genera la nota
@@ -45,10 +53,15 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.y = tile00PositionY() + posY * tileDiffY();
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
+        this.basespeed=1;
         this.direction = direction;
         this.poison =0;
         this.waittime=0;
-
+        this.allergo=false;
+        this.adagio=false;
+        this.piano=false;
+        this.forte=false;
+        
         //takes the event postupdate from the scene and makes this function postUpdate be called when received
         this.scene.events.on('postupdate', this.postUpdate.bind(this));
     }
@@ -56,11 +69,10 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //After each update moves note forward
     //this needs to be done because deltaTime is not defined until the first update
     postUpdate(){
-        if(this.waittime==0)
-        {
+       
         this.MoveForward(); 
-        }
-        else{this.waittime-1;}
+        
+        
 
     }
 
@@ -77,14 +89,68 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     }
     /* ChangePoison se usa tanto para añadir como para quitar 
     el efecto de veneno */
-    ChangePoison( cantidad)
+    AddPoison( cantidad)
     {
         this. poison+=cantidad;
 
     }
+   RemovePoison( cantidad)
+    {
+        this. poison-=cantidad;
+        if(this.poison<0){this.poison=0;}
+    }
     //ChangeWaitTime se usa para añadir o quitar tiempo de espera
-    ChangeWaitTime(cantidad)
+    AddWaitTime(cantidad)
     {
         this.waittime+=cantidad
+    }
+    RemoveWaitTime(cantidad)
+    {
+        this.waittime-=cantidad;
+        if(this.waittime<0){this.waittime=0;}
+    }
+    ChangeToAllergo()
+    {
+        if (this.adagio==true)
+            {
+                this.adagio =false;
+            }
+        this.allergo=true;
+        this.speed=2*this.basespeed;
+    }
+    CancelAllergo()
+    {
+        this.allergo=false;
+        this.speed=this.basespeed;
+    }
+    ChangeToAdagio()
+    {
+        if (this.allergo==true)
+            {
+                this.allergo =false;
+            }
+        this.adagio=true;
+        this.speed=this.basespeed/2;
+    }
+    CancelAdagio()
+    {
+     this.adagio=false;
+     this.speed=this.basespeed;
+    }
+    ChangeToPiano()
+    {
+        this.piano=true;
+    }
+    CancelPiano()
+    {
+        this.piano=false;
+    }
+    ChangeToForte()
+    {
+        this.forte=true;
+    }
+    CancelForte()
+    {
+        this.forte=false;
     }
 }
