@@ -7,7 +7,7 @@ export default class Instrumento{
     tipoNotas;
     actualCooldown;
     baseCooldown;
-
+    static playerRef;
     /**
      * 
      * @param {*} posNotasX Posición de las notas en x respecto a la posición del jugador
@@ -16,7 +16,10 @@ export default class Instrumento{
      * @param {*} tipoNotas Tipo de las notas 0 corchea, 1 negra, 2 blanca
      * @param {*} baseCooldown Cooldown del instrumento
      */
-    constructor(posNotasX, posNotasY, numeroNotas, tipoNotas, baseCooldown){
+    constructor(posNotasX, posNotasY, numeroNotas, tipoNotas, baseCooldown, playerRef){
+        if (playerRef == null){
+            playerRef = Instrumento.playerRef;
+        }
         this.numeroNotas = numeroNotas;
         this.NotePositionMod = {
             x:posNotasX, 
@@ -53,4 +56,6 @@ export default class Instrumento{
     CanBePlayed(){
         return (this.actualCooldown <= 0);
     }
+
+    
 }
