@@ -23,9 +23,9 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //Dirección hacia la que avanza la nota
     direction;
     //La cantidad de daño de veneno que contiene la nota
-    poison;
+    earworm;
     //cantidad de tiempo que se queda parado (Se llama silencio en el GDD)
-    waittime;
+    silent;
     /**También creo una variable de quedarse quieto 
     y hasta que se acabe el tiempo, el speed será 0*/
     //booleanos para velocidad
@@ -35,7 +35,8 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     piano;
     // notas destuctoras (al colisionar con enemigas las destruyen)
     forte;
-
+    //copiar efectos al colisionar
+    acompañamiento;
     /**
      * @param {*} scene la escena en la que se genera la nota
      * @param {*} posX x de la casilla en la que se genera la nota
@@ -53,26 +54,23 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         this.y = tile00PositionY() + posY * tileDiffY();
         this.tipoNota = notas[tipoNota];
         this.speed = 1;
-        this.basespeed=1;
+       
         this.direction = direction;
-        this.poison =0;
-        this.waittime=0;
-        this.allergo=false;
-        this.adagio=false;
+        this.earworm =0;
+        this.silent=0;
         this.piano=false;
         this.forte=false;
+        this.acompañamiento=false;
         
         //takes the event postupdate from the scene and makes this function postUpdate be called when received
         this.scene.events.on('postupdate', this.postUpdate.bind(this));
+        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
     }
 
     //After each update moves note forward
     //this needs to be done because deltaTime is not defined until the first update
     postUpdate(){
-       
-        this.MoveForward(); 
-        
-        
+        if (this.waittime<1) this.MoveForward(); 
 
     }
 
@@ -89,25 +87,25 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     }
     /* ChangePoison se usa tanto para añadir como para quitar 
     el efecto de veneno */
-    AddPoison( cantidad)
+    AddEarworm( cantidad)
     {
-        this. poison+=cantidad;
+        this.earworm+=cantidad;
 
     }
-   RemovePoison( cantidad)
+   RemoveEarworm( cantidad)
     {
-        this. poison-=cantidad;
-        if(this.poison<0){this.poison=0;}
+        this.earworm-=cantidad;
+        if(this.earworm<0){this.earworm=0;}
     }
     //ChangeWaitTime se usa para añadir o quitar tiempo de espera
     AddWaitTime(cantidad)
     {
-        this.waittime+=cantidad
+        this.silent+=cantidad
     }
     RemoveWaitTime(cantidad)
     {
-        this.waittime-=cantidad;
-        if(this.waittime<0){this.waittime=0;}
+        this.silent-=cantidad;
+        if(this.silent<0){this.silent=0;}
     }
     ChangeToAllergo()
     {
@@ -116,12 +114,12 @@ export default class Nota extends Phaser.GameObjects.Sprite{
                 this.adagio =false;
             }
         this.allergo=true;
-        this.speed=2*this.basespeed;
+        this.speed=2;
     }
     CancelAllergo()
     {
         this.allergo=false;
-        this.speed=this.basespeed;
+        this.speed=1;
     }
     ChangeToAdagio()
     {
@@ -130,12 +128,12 @@ export default class Nota extends Phaser.GameObjects.Sprite{
                 this.allergo =false;
             }
         this.adagio=true;
-        this.speed=this.basespeed/2;
+        this.speed=1/2;
     }
     CancelAdagio()
     {
      this.adagio=false;
-     this.speed=this.basespeed;
+     this.speed=1;
     }
     ChangeToPiano()
     {
@@ -152,5 +150,17 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     CancelForte()
     {
         this.forte=false;
+    }
+    ChangeToAcompañamiento()
+    {
+        this.acompañamiento=true;
+    }
+    CancelAcompañamiento()
+    {
+        this.acompañamiento=false;
+    }
+    BeatFunction()
+    {
+        this.silent--;
     }
 }
