@@ -70,7 +70,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //After each update moves note forward
     //this needs to be done because deltaTime is not defined until the first update
     postUpdate(){
-        if (this.waittime<1) this.MoveForward(); 
+        if (this.silent<1) this.MoveForward(); 
 
     }
 
