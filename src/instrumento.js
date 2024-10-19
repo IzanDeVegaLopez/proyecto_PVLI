@@ -2,7 +2,8 @@ import Nota from "./nota.js"
 import { clockInstance } from "./combatScene.js";
 
 export default class Instrumento{
-    nombre = "default" ;
+    sceneRef;
+    nombre = "default";
     numeroNotas = 1;
     notePositionMod = {x:0,y:0};
     tipoNotas = 1;
@@ -11,7 +12,8 @@ export default class Instrumento{
     /**
      * @param instrumentConfig el instrumento de la base de datos con todos los parametros
      */
-    constructor(instrumentConfig){
+    constructor(scene, instrumentConfig){
+        this.sceneRef = scene;
         Object.keys(instrumentConfig).forEach(key => {
             this[key] = instrumentConfig[key];
             //const value = object[key];
@@ -25,26 +27,30 @@ export default class Instrumento{
      * @param {*} posX posicion en X desde donde se toca el instrumento
      * @param {*} posY posición en Y desde donde se toca el instrumento
      */
-    Play(scene, posX, posY){
+    Play(posX, posY){
         //Sets the cooldown
         this.actualCooldown = this.baseCooldown;
-        this.ProducirNotas(scene, posX, posY);
+        this.ProducirNotas(posX, posY);
+
         //Previene que se generen notas fuera del tablero
         
     }
 
-    ProducirNotas(scene, posX, posY){
-        for(let i= 0; i < this.numeroNotas; i++){
-            this.ThrowNotes(scene,posX,posY);
-            /**@todo Meter algún tipo de delay entre notas */
+    ProducirNotas(posX, posY){
+        this.ThrowNotes(posX,posY);
+        if(this.numeroNotas > 1){
+            this.sceneRef.time.addEvent({delay: clockInstance.delayTimer/this.numeroNotas, repeat:(this.numeroNotas-2), callback: this.ThrowNotes, args: [posX,posY], callbackScope: this});
         }
     }
-    ThrowNotes(scene, posX, posY){
-        this.SpawnNotes(scene, posX+this.notePositionMod.x, posY+this.notePositionMod.y, this.tipoNotas);
+    ThrowNotes(posX, posY){
+        this.SpawnNotes(posX+this.notePositionMod.x, posY+this.notePositionMod.y, this.tipoNotas);
     }
-    SpawnNotes(scene,posX,posY, tipoNotas){
-        if(posY < 5 && posY >= 0)
-            new Nota(scene, posX, posY, tipoNotas, 1);
+    SpawnNotes(posX,posY, tipoNotas){
+
+        if(posY < 5 && posY >= 0){
+            new Nota(this.sceneRef, posX, posY, tipoNotas, 1);
+        }
+
     }
 
 

@@ -3,15 +3,16 @@ const InstrumentDataBase = [
 {
     nombre: "Flauta",
     baseCooldown: 1,
+    numeroNotas: 2
 },
 {
     nombre: "Piano",
     numeroNotas: 1,
     tipoNotas: 1,
     baseCooldown: 1,
-    ThrowNotes: function(scene, posX, posY){
+    ThrowNotes: function(posX, posY){
         for(let i = -1; i < 2; i++){
-            this.SpawnNotes(scene, posX, posY+i, this.tipoNotas);
+            this.SpawnNotes(posX, posY+i, this.tipoNotas);
         }
     }
 }

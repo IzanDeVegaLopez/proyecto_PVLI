@@ -32,7 +32,6 @@ export default class BoardUnit extends Phaser.GameObjects.Sprite{
             maxY:4
         };
         this.UpdatePos();
-        console.log(this);
     }
     /**
      * returns the number of spaces this Unit has Moves
