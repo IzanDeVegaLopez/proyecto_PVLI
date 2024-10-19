@@ -1,6 +1,6 @@
 import { Tile00PositionX, Tile00PositionY,  TileDiffX, TileDiffY } from "./tileData.js";
 import {deltaTime, clockInstance} from "./combatScene.js"
-import notaEffects from "./NotasEffects.js";
+import NotesEffects from "./NotasEffects.js";
 
 const notas = {
     0:{
@@ -18,17 +18,9 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     /** Contiene uno de los objetos de notas (la array-like object de arriba) */
     tipoNota;
     // Contiene la velocidad en compases por beat, 
-    
     speed;
     //Dirección hacia la que avanza la nota
     direction;
-    //La cantidad de daño de veneno que contiene la nota
-   
-    //cantidad de tiempo que se queda parado (Se llama silencio en el GDD)
-    silent;
-    /**También creo una variable de quedarse quieto 
-    y hasta que se acabe el tiempo, el speed será 0*/
-
     /**
      * @param {*} scene la escena en la que se genera la nota
      * @param {*} posX x de la casilla en la que se genera la nota
@@ -52,7 +44,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         
         
         //takes the event postupdate from the scene and makes this function postUpdate be called when received
-
+        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
         this.scene.events.on('postupdate', this.PostUpdate.bind(this));
  
     }
@@ -61,7 +53,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     //this needs to be done because deltaTime is not defined until the first update
 
     PostUpdate(){
-        this.MoveForward();
+        if(!this.silent) this.MoveForward();
  
     }
 
@@ -76,32 +68,16 @@ export default class Nota extends Phaser.GameObjects.Sprite{
             this.destroy();
         }
     }
-    /* ChangePoison se usa tanto para añadir como para quitar 
-    el efecto de veneno */
-   
-    //ChangeWaitTime se usa para añadir o quitar tiempo de espera
-    AddSilent(cantidad)
-    {
-        this.silent+=cantidad
-    }
-    RemoveSilent(cantidad)
-    {
-        this.silent-=cantidad;
-        if(this.silent<0){this.silent=0;}
-    }
-    
    
     
     BeatFunction()
     {
-        this.silent--;
+        if(this.silent > 0) this.silent--;
     }
     AddKeyword(config){
-    
-        for(let i = 0; i < config.length; i++){
-            config[i].method.apply(this,config[i].param);
-           
-        };
-       
+        Object.keys(config).forEach(key => {
+            NotesEffects[key].apply(this, config[key]);
+            //const value = object[key];
+        });       
     }
 }

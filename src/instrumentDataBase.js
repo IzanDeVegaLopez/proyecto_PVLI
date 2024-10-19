@@ -6,28 +6,14 @@ const InstrumentDataBase = [
     nombre: "Flauta",
     baseCooldown: 2,
     numeroNotas: 2,
-    SpawnNotes: function(posX,posY, tipoNotas){
-
-        if(posY < 5 && posY >= 0){
-            new Nota(this.sceneRef, posX, posY, tipoNotas, 1).AddKeyword([
-                {
-                    method: notaEffects.allegro,
-                    param: []
-            }]);
-        }
-
-    }
+    noteKeywords: {allegro:null}
 },
 {
     nombre: "Piano",
     numeroNotas: 1,
     tipoNotas: 1,
     baseCooldown: 4,
-    ThrowNotes: function(posX, posY){
-        for(let i = -1; i < 2; i++){
-            this.SpawnNotes(posX, posY+i, this.tipoNotas);
-        }
-    }
+    notePositionMod: [{x:0,y:1},{x:0,y:0},{x:0,y:-1}]
 }
 ];
 

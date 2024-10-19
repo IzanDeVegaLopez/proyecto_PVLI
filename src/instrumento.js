@@ -5,10 +5,11 @@ export default class Instrumento{
     sceneRef;
     nombre = "default";
     numeroNotas = 1;
-    notePositionMod = {x:0,y:0};
+    notePositionMod = [{x:0,y:0}];
     tipoNotas = 1;
     actualCooldown = 0;
     baseCooldown = 0;
+    noteKeywords={};
     /**
      * @param instrumentConfig el instrumento de la base de datos con todos los parametros
      */
@@ -43,12 +44,14 @@ export default class Instrumento{
         }
     }
     ThrowNotes(posX, posY){
-        this.SpawnNotes(posX+this.notePositionMod.x, posY+this.notePositionMod.y, this.tipoNotas);
+        for(let i = 0; i < this.notePositionMod.length; i++){
+            this.SpawnNotes(posX+this.notePositionMod[i].x, posY+this.notePositionMod[i].y, this.tipoNotas);
+        }
     }
     SpawnNotes(posX,posY, tipoNotas){
 
         if(posY < 5 && posY >= 0){
-            new Nota(this.sceneRef, posX, posY, tipoNotas, 1);
+            new Nota(this.sceneRef, posX, posY, tipoNotas, 1).AddKeyword(this.noteKeywords);
         }
 
     }
