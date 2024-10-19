@@ -1,15 +1,14 @@
 const notaEffects = {
-    forte: function(){
-        this.forte= true;
+    forte: function()
+    {
+        this.forte = true;
     },
     piano: function()
     {
-        this.piano= true;
+        this.piano = true;
     },
     earworm: function(earwormToAdd){
-        console.log(earwormToAdd);
         if(this.earworm==undefined){this.earworm=0;}
-        console.log(this.earworm+","+earwormToAdd);
         this.earworm+=earwormToAdd;
        
     },
@@ -23,6 +22,11 @@ const notaEffects = {
     acompañamiento: function(efectosAcompañamiento)
     {
         this.efectosAcompañamiento=efectosAcompañamiento;
+    },
+    silent: function(silentToAdd)
+    {
+        if(this.silent==undefined){this.silent=0;}
+        this.silent+=silentToAdd;
     }
 
 }

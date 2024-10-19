@@ -107,6 +107,5 @@ export default class combatScene extends Phaser.Scene {
 
     startCombatSong(){
         music.play();
-        console.log(music);
     }
 }

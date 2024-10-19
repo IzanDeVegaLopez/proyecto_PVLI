@@ -9,6 +9,7 @@ export default class Instrumento{
     tipoNotas = 1;
     actualCooldown = 0;
     baseCooldown = 0;
+    noteKeywords={};
     /**
      * @param instrumentConfig el instrumento de la base de datos con todos los parametros
      */
@@ -48,7 +49,7 @@ export default class Instrumento{
     SpawnNotes(posX,posY, tipoNotas){
 
         if(posY < 5 && posY >= 0){
-            new Nota(this.sceneRef, posX, posY, tipoNotas, 1);
+            new Nota(this.sceneRef, posX, posY, tipoNotas, 1).AddKeyword(this.noteKeywords);
         }
 
     }

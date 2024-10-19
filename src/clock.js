@@ -1,5 +1,5 @@
 /**Is doubled cause it checks this time before and after the beat */
-const tempoErrorMargin = 75;
+const tempoErrorMargin = 100;
 
 export default class Clock{
     /** time of the last key Pressed, updated with isTempo */
@@ -22,7 +22,7 @@ export default class Clock{
         this.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
         //this.clockConfig = scene.clockConfig;
         
-
+        
         this.timerEvent = scene.time.addEvent(this.clockConfig);
         
         //inicializar variables de tiempo
