@@ -3,11 +3,15 @@ import Player from './player.js';
 import Clock from './clock.js';
 import RhythmMarker from './rhythmMarker.js';
 import Instrument from "./instrumento.js";
-import InstrumentDataBase from "./instrumentDataBase.js"
+import InstrumentDataBase from "./instrumentDataBase.js";
+import Enemy from "./enemy.js";
+import testEnemy from "./testEnemy.js";
 
 
 //La declaro aquí para que tenga acceso todo el archivo
+//esto es una guarrada
 let player;
+let enemy;
 let KEYS;
 let deltaTime;
 let clockInstance;
@@ -30,6 +34,7 @@ export default class combatScene extends Phaser.Scene {
     }
 
     preload(){
+        this.load.image(testEnemy.name, testEnemy.imagePath);
         this.load.image("fondo", "./assets/img/IlustracionCombatZoneProvisional_LRhythm.jpg");
         this.load.image("sawa", "./assets/img/fathomgames500px.png");
         /**Todo cambiar clock por la imagen de las notitas que bajan hasta el punto correcto*/
@@ -57,8 +62,8 @@ export default class combatScene extends Phaser.Scene {
         this.add.image(0,0,"fondo").setDisplaySize(this.game.scale.width, this.game.scale.height).setOrigin(0,0);
         //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
         player = new Player(this, new Instrument(this,InstrumentDataBase[0]), new Instrument(this, InstrumentDataBase[1]));
-        player.setOrigin();
-        player.setDisplaySize(100,100);
+
+        enemy = new Enemy(this, testEnemy);
 
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);

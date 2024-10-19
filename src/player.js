@@ -21,7 +21,9 @@ export default class Player extends BoardUnit{
      */
     constructor(scene, instrumento1 = undefined, instrumento2 = undefined, instrumento3 = undefined){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
-        super(scene, {x:1, y:2}, 'sawa');    
+        super(scene, {x:1, y:2}, 'sawa');  
+        this.setOrigin();
+        this.setDisplaySize(100,100);  
         this.normalMoveLimitPos = {
             minX:0,
             minY:0,
