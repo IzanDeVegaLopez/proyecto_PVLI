@@ -1,6 +1,6 @@
 import Instrumento from "./instrumento.js"
-import { tile00PositionX, tile00PositionY,  tileDiffX, tileDiffY } from "./tileData.js";
 import { clockInstance } from "./combatScene.js";
+import BoardUnit from './boardUnit.js';
 /**
  * Cambiar la clase Player por la clase character
  * Luego player y enemy heredan de la clase character
@@ -9,66 +9,43 @@ import { clockInstance } from "./combatScene.js";
 
 //Clase player tiene todas las funciones de movimiento, toca instrumentos y demás
 //extiende de sprite para usar su cuerpo físico y cambiar la posición y animaciones del personaje según sus acciones
-export default class Player extends Phaser.GameObjects.Sprite{
-    //Player.GameObjects.Sprite tiene una propiedad scene a la que podemos llamar para hacer referencia a la escena actual
-
-    /** La posición en casillas del player, la casilla (0,0) es arriba a la izquierda*/
-    position;
-    /** Las posiciones extremo a las que el player se puede mover de forma natural
-     *  Con estos valores podría estar en cualquier casilla entre (minX,minY) y (maxX,maxY) --> (0,0) y (2,4)
-     */
-    limitPositions;
+export default class Player extends BoardUnit{
+    normalMoveLimitPos;
     /**Contiene los 3 instrumentos del player */
     instrumentos;
     /**
      * @param {*} scene la escena en la que está el personaje
+     * @param {*} instrument1
+     *      * @param {*} instrument2
+     *      * @param {*} instrument3
      */
     constructor(scene, instrumento1 = undefined, instrumento2 = undefined, instrumento3 = undefined){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
-        super(scene, tile00PositionX(), tile00PositionY(), 'sawa');
-        //Añade este sprite a la escena
-        scene.add.existing(this);
-        this.position = {
-            x: 1,
-            y: 2
-        };        
-        this.limitPositions = {
+        super(scene, {x:1, y:2}, 'sawa');    
+        this.normalMoveLimitPos = {
             minX:0,
             minY:0,
             maxX:2,
             maxY:4
         };
-        this.UpdatePos();
         /**@todo incluir los instrumentos correspondientes */
         this.instrumentos = [instrumento1, instrumento2, instrumento3];
     
+        console.log(this);
         //clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
     }
     /**
      * 
-     * @param {*} x las posiciones a mover al player hacia la derecha
-     * @param {*} y las posiciones a mover al player hacia abajo
+     * @param {*} xAdd las posiciones a mover al player hacia la derecha
+     * @param {*} yAdd las posiciones a mover al player hacia abajo
      */
-    Move(xAdd, yAdd){
-        if(clockInstance.isTempo()) this.Syncopate();
-
-        this.lastPress = new Date();
-        //Cambia la posición en x del player y hace que los limites para moverse horizontalmente sean las casillas definidas en limitPositions
-        this.position.x = Math.max(this.limitPositions.minX,Math.min(this.limitPositions.maxX,this.position.x+xAdd));
-        //Cambia la posición en y del player y hace que los limites para moverse verticalmente sean sean las casillas definidas en limitPositions
-        this.position.y = Math.max(this.limitPositions.minY,Math.min(this.limitPositions.maxY,this.position.y+yAdd));
-        //actualiza la posición del sprite
-        this.UpdatePos();
+    NormalMove(xAdd, yAdd){
+        if(Math.abs(Math.max(this.normalMoveLimitPos.minX,Math.min(this.normalMoveLimitPos.maxX,this.position.x+xAdd))-this.position.x) + Math.abs(Math.max(this.normalMoveLimitPos.minY,Math.min(this.normalMoveLimitPos.maxY,this.position.y+yAdd))-this.position.y)>0){
+            if(this.Move(xAdd,yAdd) > 0){
+                if(clockInstance.isTempo()) this.Syncopate();
+            }
+        }
     }
-    /**
-     * Actualiza la posición del sprite del player respecto a su posición actual
-     * @todo hacer que el movimiento no sea inmediato, si no que se deslice rapidamente hasta su nueva posición actual
-     */
-    UpdatePos(){
-        this.x = tile00PositionX() + this.position.x * tileDiffX();
-        this.y = tile00PositionY() + this.position.y * tileDiffY();
-    }
-
     PlayInstrument(numeroInstrumento){
         //console.log(this.instrumentos[numeroInstrumento].CanBePlayed);
         if(this.instrumentos[numeroInstrumento]!=undefined && this.instrumentos[numeroInstrumento].CanBePlayed()){
@@ -76,12 +53,11 @@ export default class Player extends Phaser.GameObjects.Sprite{
                 this.Tempo();
             this.instrumentos[numeroInstrumento].Play(this.scene, this.position.x, this.position.y);
         }
-
-
     }
 
     /**Produce todos los efectos de syncopate al moverse al ritmo*/
     Syncopate(){
+        /**@todo Lanzar un evento que coje todo cristo con syncopate */
         console.log("syncopate");
     }
     /**Produce todos los efectos no específicos de instrumentos al tocar al ritmo */
