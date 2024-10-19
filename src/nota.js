@@ -30,8 +30,8 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     constructor(scene, posX, posY, tipoNota, direction){
         super(scene, tile00PositionX(), tile00PositionY(), notas[tipoNota].name);
         scene.add.existing(this);
-        this.setScale(3,3);
-        this.setOrigin(0,0.66);
+        this.setScale(2,2);
+        this.setOrigin(0,0.75);
 
         this.x = tile00PositionX() + posX * tileDiffX();
         this.y = tile00PositionY() + posY * tileDiffY();

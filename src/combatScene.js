@@ -74,16 +74,16 @@ export default class combatScene extends Phaser.Scene {
         //Ejemplo de como llamar ejecutar funciones cuando una tecla se pulse (solo se ejecuta una vez por cada pulsación de tecla)
         //KEYS.UP.isDown se puede usar si queremos hacerlo mientras se mantenga pulsado
         if (Phaser.Input.Keyboard.JustDown(KEYS.UP)) {
-            player.Move(0,-1);
+            player.NormalMove(0,-1);
         }
         else if(Phaser.Input.Keyboard.JustDown(KEYS.DOWN)) {
-            player.Move(0,1);
+            player.NormalMove(0,1);
         }
         else if (Phaser.Input.Keyboard.JustDown(KEYS.LEFT)) {
-            player.Move(-1,0);
+            player.NormalMove(-1,0);
         }
         else if (Phaser.Input.Keyboard.JustDown(KEYS.RIGHT)){
-            player.Move(1,0);
+            player.NormalMove(1,0);
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON1)){
             player.PlayInstrument(0);
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON2)){
