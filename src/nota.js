@@ -98,11 +98,11 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         if(this.earworm<0){this.earworm=0;}
     }
     //ChangeWaitTime se usa para añadir o quitar tiempo de espera
-    AddWaitTime(cantidad)
+    AddSilent(cantidad)
     {
         this.silent+=cantidad
     }
-    RemoveWaitTime(cantidad)
+    RemoveSilent(cantidad)
     {
         this.silent-=cantidad;
         if(this.silent<0){this.silent=0;}
