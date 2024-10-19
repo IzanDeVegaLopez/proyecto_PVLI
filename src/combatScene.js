@@ -15,6 +15,7 @@ let enemy;
 let KEYS;
 let deltaTime;
 let clockInstance;
+let music;
 export {deltaTime, clockInstance};
 
 /*Escena de Phaser*/
@@ -34,6 +35,8 @@ export default class combatScene extends Phaser.Scene {
     }
 
     preload(){
+        this.load.audio('currentCombatSong', [ (testEnemy.songPath+'.ogg'), (testEnemy.songPath+'.mp3'), (testEnemy.songPath+'.m4a') ]);
+
         this.load.image(testEnemy.name, testEnemy.imagePath);
         this.load.image("fondo", "./assets/img/IlustracionCombatZoneProvisional_LRhythm.jpg");
         this.load.image("sawa", "./assets/img/fathomgames500px.png");
@@ -47,7 +50,8 @@ export default class combatScene extends Phaser.Scene {
 
         
         //iniciar el clock con los BPM como parametro
-        clockInstance = new Clock(this, 120);
+        clockInstance = new Clock(this, testEnemy.bpm);
+        clockInstance.eventEmitter.once("BeatNow", this.startCombatSong, this);
     }
 
     /**
@@ -64,6 +68,8 @@ export default class combatScene extends Phaser.Scene {
         player = new Player(this, new Instrument(this,InstrumentDataBase[0]), new Instrument(this, InstrumentDataBase[1]));
 
         enemy = new Enemy(this, testEnemy);
+
+        music = this.sound.add('currentCombatSong');
 
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);
@@ -96,5 +102,11 @@ export default class combatScene extends Phaser.Scene {
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON3)){
             player.PlayInstrument(2);
         }
+    }
+
+
+    startCombatSong(){
+        music.play();
+        console.log(music);
     }
 }
