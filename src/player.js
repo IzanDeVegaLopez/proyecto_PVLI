@@ -6,9 +6,6 @@ import { clockInstance } from "./combatScene.js";
  * Luego player y enemy heredan de la clase character
  */
 
-/** @todo Mover todos los instrumentos a ficheros y eliminar estos de aquí. Hacer que extiendan de la clase instrumento*/
-//const instrumento1 = new Instrumento(0,0,1,1);
-//const instrumento2 = new Instrumento(0,-1,1,1);
 
 //Clase player tiene todas las funciones de movimiento, toca instrumentos y demás
 //extiende de sprite para usar su cuerpo físico y cambiar la posición y animaciones del personaje según sus acciones
@@ -23,8 +20,6 @@ export default class Player extends Phaser.GameObjects.Sprite{
     limitPositions;
     /**Contiene los 3 instrumentos del player */
     instrumentos;
-    //Stores key Presses on this beat
-
     /**
      * @param {*} scene la escena en la que está el personaje
      */
@@ -93,8 +88,4 @@ export default class Player extends Phaser.GameObjects.Sprite{
     Tempo(){
         console.log("tempo");
     }
-
-    /**Funciones a llamar cada vez que haya un pulso */
-    //BeatFunction(){
-    //}
 }
