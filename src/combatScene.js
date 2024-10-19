@@ -2,7 +2,9 @@ import {KEY_BINDINGS} from './inputKeys.js';
 import Player from './player.js';
 import Clock from './clock.js';
 import RhythmMarker from './rhythmMarker.js';
-import Instrument from "./instrumento.js"
+import Instrument from "./instrumento.js";
+import InstrumentDataBase from "./instrumentDataBase.js"
+
 
 //La declaro aquí para que tenga acceso todo el archivo
 let player;
@@ -54,7 +56,7 @@ export default class combatScene extends Phaser.Scene {
         //Create fondo
         this.add.image(0,0,"fondo").setDisplaySize(this.game.scale.width, this.game.scale.height).setOrigin(0,0);
         //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
-        player = new Player(this, new Instrument(0,0, 1, 1, 6), new Instrument(1,0,3,1,3));
+        player = new Player(this, new Instrument(InstrumentDataBase[0]), new Instrument(InstrumentDataBase[1]));
         player.setOrigin();
         player.setDisplaySize(100,100);
 
