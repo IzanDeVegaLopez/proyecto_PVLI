@@ -3,18 +3,18 @@
 
 
 /** returns the position on the scene of the tile in the 00 position */
-export function tile00PositionX(){
+export function Tile00PositionX(){
     return 250;
 }
 /** returns the position on the scene of the tile in the 00 position */
-export function tile00PositionY(){
+export function Tile00PositionY(){
     return 125;
 }
 /** returns the difference between the centers of the tiles in the x axis*/
-export function tileDiffX(){
+export function TileDiffX(){
     return 140;
 }
 /** returns the difference between the centers of the tiles in the y axis*/
-export function tileDiffY(){
+export function TileDiffY(){
     return 95;
 }

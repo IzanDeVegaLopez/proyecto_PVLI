@@ -2,48 +2,57 @@ import Nota from "./nota.js"
 import { clockInstance } from "./combatScene.js";
 
 export default class Instrumento{
-    numeroNotas;
-    notePositionMod;
-    tipoNotas;
-    actualCooldown;
-    baseCooldown;
-
+    sceneRef;
+    nombre = "default";
+    numeroNotas = 1;
+    notePositionMod = {x:0,y:0};
+    tipoNotas = 1;
+    actualCooldown = 0;
+    baseCooldown = 0;
     /**
-     * 
-     * @param {*} posNotasX Posición de las notas en x respecto a la posición del jugador
-     * @param {*} posNotasY Posición de las notas en y respecto a la posición del jugador
-     * @param {*} numeroNotas Numero de notas generadas al tocarlo
-     * @param {*} tipoNotas Tipo de las notas 0 corchea, 1 negra, 2 blanca
-     * @param {*} baseCooldown Cooldown del instrumento
+     * @param instrumentConfig el instrumento de la base de datos con todos los parametros
      */
-    constructor(posNotasX, posNotasY, numeroNotas, tipoNotas, baseCooldown){
-        this.numeroNotas = numeroNotas;
-        this.NotePositionMod = {
-            x:posNotasX, 
-            y:posNotasY
-        };
-        this.tipoNotas = tipoNotas;
-        this.baseCooldown  = baseCooldown;
-        this.actualCooldown = 0;
-        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
+    constructor(scene, instrumentConfig){
+        this.sceneRef = scene;
+        Object.keys(instrumentConfig).forEach(key => {
+            this[key] = instrumentConfig[key];
+            //const value = object[key];
+        });
+        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
     }
 
     /**
      * Toca este instrumento
+     * @param {*} scene escena en la que se van a spawnear las notas
      * @param {*} posX posicion en X desde donde se toca el instrumento
      * @param {*} posY posición en Y desde donde se toca el instrumento
      */
-    Play(scene, posX, posY){
+    Play(posX, posY){
         //Sets the cooldown
         this.actualCooldown = this.baseCooldown;
+        this.ProducirNotas(posX, posY);
+
         //Previene que se generen notas fuera del tablero
-        if(posY+this.NotePositionMod.y < 5 && posY+this.NotePositionMod.y >= 0){
-            for(let i= 0; i < this.numeroNotas; i++){
-                new Nota(scene, posX+this.NotePositionMod.x, posY+this.NotePositionMod.y, this.tipoNotas, 1);
-                /**@todo Meter algún tipo de delay entre notas */
-            }
+        
+    }
+
+    ProducirNotas(posX, posY){
+        this.ThrowNotes(posX,posY);
+        if(this.numeroNotas > 1){
+            this.sceneRef.time.addEvent({delay: clockInstance.delayTimer/this.numeroNotas, repeat:(this.numeroNotas-2), callback: this.ThrowNotes, args: [posX,posY], callbackScope: this});
         }
     }
+    ThrowNotes(posX, posY){
+        this.SpawnNotes(posX+this.notePositionMod.x, posY+this.notePositionMod.y, this.tipoNotas);
+    }
+    SpawnNotes(posX,posY, tipoNotas){
+
+        if(posY < 5 && posY >= 0){
+            new Nota(this.sceneRef, posX, posY, tipoNotas, 1);
+        }
+
+    }
+
 
     BeatFunction(){
         this.actualCooldown--;

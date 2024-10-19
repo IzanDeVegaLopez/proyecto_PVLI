@@ -19,12 +19,11 @@ export default class Clock{
     constructor(scene, BPM){
         this.delayTimer = 1000 /(BPM/60);
 
-        scene.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
-        this.clockConfig = scene.clockConfig;
+        this.clockConfig = {delay: this.delayTimer, loop: true, callback: this.UpdateLastBeat, callbackScope: this, paused:false};
+        //this.clockConfig = scene.clockConfig;
         
 
-        scene.timerEvent = scene.time.addEvent(scene.clockConfig);
-        this.timerEvent = scene.timerEvent;
+        this.timerEvent = scene.time.addEvent(this.clockConfig);
         
         //inicializar variables de tiempo
         this.lastPress = this.lastBeat = new Date();
@@ -55,13 +54,13 @@ export default class Clock{
     }
 
     /** returns time till next Beat */
-    getTimeSinceBeat(){
+    GetTimeSinceBeat(){
         return (new Date() - this.lastBeat);
     }
 
     /**Returns if when this is called it can be considered to the rhythm */
-    isTempo(){
-        let timeTillNextBeat = this.getTimeSinceBeat();
+    IsTempo(){
+        let timeTillNextBeat = this.GetTimeSinceBeat();
         let auxBool = ((new Date() - this.lastPress > this.delayTimer/2) && (timeTillNextBeat < tempoErrorMargin || timeTillNextBeat > this.delayTimer - tempoErrorMargin));
         this.lastPress = new Date();
         return auxBool;
