@@ -8,28 +8,6 @@ export default class Instrumento{
     tipoNotas = 1;
     actualCooldown = 0;
     baseCooldown = 0;
-
-    /*
-    /**
-     * 
-     * @param {*} posNotasX Posición de las notas en x respecto a la posición del jugador
-     * @param {*} posNotasY Posición de las notas en y respecto a la posición del jugador
-     * @param {*} numeroNotas Numero de notas generadas al tocarlo
-     * @param {*} tipoNotas Tipo de las notas 0 corchea, 1 negra, 2 blanca
-     * @param {*} baseCooldown Cooldown del instrumento
-     
-    constructor(posNotasX, posNotasY, numeroNotas, tipoNotas, baseCooldown){
-        this.numeroNotas = numeroNotas;
-        this.NotePositionMod = {
-            x:posNotasX, 
-            y:posNotasY
-        };
-        this.tipoNotas = tipoNotas;
-        this.baseCooldown  = baseCooldown;
-        this.actualCooldown = 0;
-        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
-    }
-        */
     /**
      * @param instrumentConfig el instrumento de la base de datos con todos los parametros
      */
@@ -68,6 +46,7 @@ export default class Instrumento{
         if(posY < 5 && posY >= 0)
             new Nota(scene, posX, posY, tipoNotas, 1);
     }
+
 
     BeatFunction(){
         this.actualCooldown--;

@@ -5,6 +5,7 @@ import RhythmMarker from './rhythmMarker.js';
 import Instrument from "./instrumento.js";
 import InstrumentDataBase from "./instrumentDataBase.js"
 
+
 //La declaro aquí para que tenga acceso todo el archivo
 let player;
 let KEYS;
