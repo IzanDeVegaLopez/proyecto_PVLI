@@ -30,8 +30,6 @@ export default class Player extends BoardUnit{
         };
         /**@todo incluir los instrumentos correspondientes */
         this.instrumentos = [instrumento1, instrumento2, instrumento3];
-    
-        console.log(this);
         //clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
     }
     /**
@@ -51,7 +49,7 @@ export default class Player extends BoardUnit{
         if(this.instrumentos[numeroInstrumento]!=undefined && this.instrumentos[numeroInstrumento].CanBePlayed()){
             if(clockInstance.isTempo()) 
                 this.Tempo();
-            this.instrumentos[numeroInstrumento].Play(this.scene, this.position.x, this.position.y);
+            this.instrumentos[numeroInstrumento].Play(this.position.x, this.position.y);
         }
     }
 
