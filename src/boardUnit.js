@@ -1,4 +1,4 @@
-import { tile00PositionX, tile00PositionY,  tileDiffX, tileDiffY } from "./tileData.js";
+import { Tile00PositionX, Tile00PositionY,  TileDiffX, TileDiffY } from "./tileData.js";
 
 //Clase player tiene todas las funciones de movimiento, toca instrumentos y demás
 //extiende de sprite para usar su cuerpo físico y cambiar la posición y animaciones del personaje según sus acciones
@@ -18,7 +18,7 @@ export default class BoardUnit extends Phaser.GameObjects.Sprite{
      */
     constructor(scene, startPos, imageID){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
-        super(scene, tile00PositionX(), tile00PositionY(), imageID);
+        super(scene, Tile00PositionX(), Tile00PositionY(), imageID);
         //Añade este sprite a la escena
         scene.add.existing(this);
         this.position = {
@@ -54,7 +54,7 @@ export default class BoardUnit extends Phaser.GameObjects.Sprite{
      * @todo hacer que el movimiento no sea inmediato, si no que se deslice rapidamente hasta su nueva posición actual
      */
     UpdatePos(){
-        this.x = tile00PositionX() + this.position.x * tileDiffX();
-        this.y = tile00PositionY() + this.position.y * tileDiffY();
+        this.x = Tile00PositionX() + this.position.x * TileDiffX();
+        this.y = Tile00PositionY() + this.position.y * TileDiffY();
     }
 }

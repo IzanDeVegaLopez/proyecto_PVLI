@@ -1,7 +1,7 @@
 import { clockInstance } from "./combatScene.js";
 
 /**Position of the yCenter if rhythm point */
-const beatPos = 635;
+const beatPos = 625;
 /**Number of simultaneous rhythm markers on screen */
 let NumberOfMarkers;
 
@@ -37,18 +37,18 @@ class rhythmMarker extends Phaser.GameObjects.Image{
         this.setDisplaySize(50,50);
         this.beats = startBeat;
         //añado que la escena llame a mi función postUpdate cuando llame a las funciones postUpdate, basicamente pq como deltaTime no esta definido hasta después del primer update es propenso a explotar
-        this.scene.events.on('postupdate', this.postUpdate.bind(this));
+        this.scene.events.on('postupdate', this.PostUpdate.bind(this));
         //añado que cuando haya un beat se llame a la función beat
-        clockInstance.eventEmitter.on("BeatNow", this.beatFunction.bind(this));
+        clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
     }
     /**Lo coloca en la posición actual */
-    postUpdate(){
-        this.y = beatPos *  ((this.beats + (clockInstance.getTimeSinceBeat()/clockInstance.delayTimer))/  NumberOfMarkers );
+    PostUpdate(){
+        this.y = beatPos *  ((this.beats + (clockInstance.GetTimeSinceBeat()/clockInstance.delayTimer))/  NumberOfMarkers );
         //console.log( ((this.beats + (clockInstance.getTimeSinceBeat()/clockInstance.delayTimer))/  NumberOfMarkers ));
     }
 
     /**Updates how much beats have passed since this note was created, if it reaches the bottom it is moved to the start position */
-    beatFunction(){
+    BeatFunction(){
         if(this.beats == NumberOfMarkers-1){
             this.beats = 0;
         }else{

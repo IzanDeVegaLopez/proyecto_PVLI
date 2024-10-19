@@ -54,13 +54,13 @@ export default class Clock{
     }
 
     /** returns time till next Beat */
-    getTimeSinceBeat(){
+    GetTimeSinceBeat(){
         return (new Date() - this.lastBeat);
     }
 
     /**Returns if when this is called it can be considered to the rhythm */
-    isTempo(){
-        let timeTillNextBeat = this.getTimeSinceBeat();
+    IsTempo(){
+        let timeTillNextBeat = this.GetTimeSinceBeat();
         let auxBool = ((new Date() - this.lastPress > this.delayTimer/2) && (timeTillNextBeat < tempoErrorMargin || timeTillNextBeat > this.delayTimer - tempoErrorMargin));
         this.lastPress = new Date();
         return auxBool;

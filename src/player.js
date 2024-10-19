@@ -40,14 +40,14 @@ export default class Player extends BoardUnit{
     NormalMove(xAdd, yAdd){
         if(Math.abs(Math.max(this.normalMoveLimitPos.minX,Math.min(this.normalMoveLimitPos.maxX,this.position.x+xAdd))-this.position.x) + Math.abs(Math.max(this.normalMoveLimitPos.minY,Math.min(this.normalMoveLimitPos.maxY,this.position.y+yAdd))-this.position.y)>0){
             if(this.Move(xAdd,yAdd) > 0){
-                if(clockInstance.isTempo()) this.Syncopate();
+                if(clockInstance.IsTempo()) this.Syncopate();
             }
         }
     }
     PlayInstrument(numeroInstrumento){
         //console.log(this.instrumentos[numeroInstrumento].CanBePlayed);
         if(this.instrumentos[numeroInstrumento]!=undefined && this.instrumentos[numeroInstrumento].CanBePlayed()){
-            if(clockInstance.isTempo()) 
+            if(clockInstance.IsTempo()) 
                 this.Tempo();
             this.instrumentos[numeroInstrumento].Play(this.position.x, this.position.y);
         }
