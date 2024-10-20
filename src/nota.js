@@ -2,18 +2,6 @@ import { Tile00PositionX, Tile00PositionY,  TileDiffX, TileDiffY } from "./tileD
 import {deltaTime, clockInstance} from "./combatScene.js"
 import NotesEffects from "./NotasEffects.js";
 
-const notas = {
-    0:{
-        name: "corchea"
-    },
-    1 : {
-        name: "negra"
-    },
-    2 : {
-        name: "blanca"
-    }
-};
-
 export default class Nota extends Phaser.GameObjects.Sprite{
     /** Contiene uno de los objetos de notas (la array-like object de arriba) */
     tipoNota;
@@ -29,19 +17,19 @@ export default class Nota extends Phaser.GameObjects.Sprite{
      * @param {*} direction 1 si es la lanza el jugador, -1 si la lanza el enemigo
      */
     constructor(scene, posX, posY, tipoNota, direction){
-        super(scene, Tile00PositionX(), Tile00PositionY(), notas[tipoNota].name);
+        super(scene, Tile00PositionX(), Tile00PositionY(), 'notes');
         scene.add.existing(this);
         this.setScale(2,2);
         this.setOrigin(0,0.75);
 
         this.x = Tile00PositionX() + posX * TileDiffX();
         this.y = Tile00PositionY() + posY * TileDiffY();
-        this.tipoNota = notas[tipoNota];
+        //this.tipoNota = notas[tipoNota];
         this.speed = 1;
         this.silent=0;
        
         this.direction = direction;
-        
+        this.tipoNota = tipoNota;
         
         //takes the event postupdate from the scene and makes this function postUpdate be called when received
         clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
@@ -52,9 +40,17 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         //Se define como nota del player o del enemy
         if(this.direction == 1){
             scene.playerNotes.add(this);
+            this.tint = 0x179bae;
         }else{
             scene.enemyNotes.add(this);
+            this.tint = 0xff8343;
+            this.setFlipY(true);
         }
+
+        this.UpdateImage();
+    }
+    UpdateImage(){
+        this.play("notes"+this.tipoNota);
     }
 
     //After each update moves note forward

@@ -1,7 +1,7 @@
 const notaEffects = {
     forte: function()
     {
-        this.forte = true;
+        this.scene.playerNotesAgainstEnemyNotes.add(this);
     },
     piano: function()
     {
@@ -29,6 +29,11 @@ const notaEffects = {
     {
         if(this.silent==undefined){this.silent=0;}
         this.silent+=silentToAdd;
+    },
+    damage: function(){
+        this.tipoNota--;
+        if(this.tipoNota < 0) this.destroy();
+        else this.UpdateImage();
     }
 
 }

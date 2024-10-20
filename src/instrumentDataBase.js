@@ -5,8 +5,9 @@ const InstrumentDataBase = [
 {
     nombre: "Flauta",
     baseCooldown: 2,
-    numeroNotas: 1  ,
-    noteKeywords: {allegro:null, accompaniment:[{adagio:[2]}]}
+    numeroNotas: 1,
+    tipoNotas: 0,
+    noteKeywords: {forte:null,allegro:null, accompaniment:[{adagio:[2]}]}
 },
 {
     nombre: "Piano",
