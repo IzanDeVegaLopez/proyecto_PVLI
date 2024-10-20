@@ -33,6 +33,10 @@ export default class Player extends BoardUnit{
         /**@todo incluir los instrumentos correspondientes */
         this.instrumentos = [instrumento1, instrumento2, instrumento3];
         //clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this))
+
+        // Agregamos el caballero a las físicas para que Phaser lo tenga en cuenta
+		scene.physics.add.existing(this);
+        this.body.setSize(350, 250, true);
     }
     /**
      * 

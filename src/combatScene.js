@@ -7,11 +7,6 @@ import InstrumentDataBase from "./instrumentDataBase.js";
 import Enemy from "./enemy.js";
 import testEnemy from "./testEnemy.js";
 
-
-//La declaro aquí para que tenga acceso todo el archivo
-//esto es una guarrada
-let player;
-let enemy;
 let KEYS;
 let deltaTime;
 let clockInstance;
@@ -65,15 +60,23 @@ export default class combatScene extends Phaser.Scene {
         //Create fondo
         this.add.image(0,0,"fondo").setDisplaySize(this.game.scale.width, this.game.scale.height).setOrigin(0,0);
         //Crea un player con la escena, la pos00x, pos00y, tileDiffx, tileDiffy
-        player = new Player(this, new Instrument(this,InstrumentDataBase[0]), new Instrument(this, InstrumentDataBase[1]));
+        this.player = new Player(this, new Instrument(this,InstrumentDataBase[0]), new Instrument(this, InstrumentDataBase[1]));
 
-        enemy = new Enemy(this, testEnemy);
+        this.enemy = new Enemy(this, testEnemy);
 
         music = this.sound.add('currentCombatSong');
 
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);
 
+        this.playerNotes = this.physics.add.group();
+        this.enemyNotes = this.physics.add.group();
+
+        //Las notas del enemigo se chocan con el player
+        this.physics.add.collider(this.player, this.enemyNotes, (player,note)=>{
+            console.log("dado");
+            note.destroy();
+        }); // Suelo con cajas
     }
 
     update(){
@@ -85,22 +88,22 @@ export default class combatScene extends Phaser.Scene {
         //Ejemplo de como llamar ejecutar funciones cuando una tecla se pulse (solo se ejecuta una vez por cada pulsación de tecla)
         //KEYS.UP.isDown se puede usar si queremos hacerlo mientras se mantenga pulsado
         if (Phaser.Input.Keyboard.JustDown(KEYS.UP)) {
-            player.NormalMove(0,-1);
+            this.player.NormalMove(0,-1);
         }
         else if(Phaser.Input.Keyboard.JustDown(KEYS.DOWN)) {
-            player.NormalMove(0,1);
+            this.player.NormalMove(0,1);
         }
         else if (Phaser.Input.Keyboard.JustDown(KEYS.LEFT)) {
-            player.NormalMove(-1,0);
+            this.player.NormalMove(-1,0);
         }
         else if (Phaser.Input.Keyboard.JustDown(KEYS.RIGHT)){
-            player.NormalMove(1,0);
+            this.player.NormalMove(1,0);
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON1)){
-            player.PlayInstrument(0);
+            this.player.PlayInstrument(0);
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON2)){
-            player.PlayInstrument(1);
+            this.player.PlayInstrument(1);
         }else if(Phaser.Input.Keyboard.JustDown(KEYS.BUTTON3)){
-            player.PlayInstrument(2);
+            this.player.PlayInstrument(2);
         }
     }
 
