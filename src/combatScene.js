@@ -43,6 +43,8 @@ export default class combatScene extends Phaser.Scene {
          */
         this.load.image("negra", "./assets/img/negra.png");
 
+        this.load.spritesheet('notes', 'assets/img/notasSpriteSheet.png', {frameWidth: 32, frameHeight: 32});
+
         
         //iniciar el clock con los BPM como parametro
         clockInstance = new Clock(this, testEnemy.bpm);
@@ -69,12 +71,33 @@ export default class combatScene extends Phaser.Scene {
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);
 
+        this.anims.create({
+			key: 'notes0',
+			frames: this.anims.generateFrameNumbers('notes', {start:0, end:0}),
+			frameRate: 1,
+			repeat: -1
+		});
+        this.anims.create({
+			key: 'notes1',
+			frames: this.anims.generateFrameNumbers('notes', {start:1, end:1}),
+			frameRate: 1,
+			repeat: -1
+		});
+        this.anims.create({
+			key: 'notes2',
+			frames: this.anims.generateFrameNumbers('notes', {start:2, end:2}),
+			frameRate: 1,
+			repeat: -1
+		});
+
+
+        //Colisiones------------------------------------------------------------------------------------------------------------------------
         this.playerNotes = this.physics.add.group();
         this.enemyNotes = this.physics.add.group();
         //Contiene las notas que chocan contra notas del player
         this.playerNotesAndPlayerNotes = this.physics.add.group();
         //Contiene las notas del enemigo o del player que chocan entre sí
-        this.playerNotesAndEnemyNotes = this.physics.add.group();
+        this.playerNotesAgainstEnemyNotes = this.physics.add.group();
 
         //Las notas del enemigo se chocan con el player
         this.physics.add.overlap(this.enemyNotes, this.player, (player,note)=>{
@@ -97,13 +120,23 @@ export default class combatScene extends Phaser.Scene {
         this.physics.add.overlap(this.playerNotesAndPlayerNotes, this.playerNotes, (collidingNote, receivingNote)=>{
             if(!collidingNote.piano && !receivingNote.piano)
             if(!collidingNote.notesCollidedWith.includes(receivingNote)){
-                console.log(collidingNote.efectosAccompaniment);
-                //console.log(collidingNote.efectosAccompaniment);
                 receivingNote.AddKeyword(collidingNote.efectosAccompaniment);
-                /**@todo hacer que la nota aplique los efectos necesarios */
                 collidingNote.notesCollidedWith.push(receivingNote);
             }
         });
+        //Notas del player chocandose contra notas Enemy
+        this.physics.add.overlap(this.playerNotesAgainstEnemyNotes, this.enemyNotes, (collidingNote, receivingNote)=>{
+            if(!collidingNote.piano && !receivingNote.piano)
+            if(!collidingNote.notesCollidedWith.includes(receivingNote)){
+                console.log(collidingNote.efectosAccompaniment);
+                //console.log(collidingNote.efectosAccompaniment);
+                receivingNote.destroy();
+                collidingNote.AddKeyword({damage:null});
+                /**@todo hacer que la nota aplique los efectos necesarios */
+                //collidingNote.notesCollidedWith.push(receivingNote);
+            }
+        });
+        //--------------------------------------------------------------------------------------------------------------------------
 
     }
 
