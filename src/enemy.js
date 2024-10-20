@@ -15,6 +15,9 @@ export default class Enemy extends BoardUnit{
         this.enemyActions = enemyData.enemyActions;
         this.enemyActionIndex = 0;
         clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
+
+        scene.physics.add.existing(this);
+        this.body.setSize(30, 10, true);
     }
 
     /**Programa las acciones del siguiente beat

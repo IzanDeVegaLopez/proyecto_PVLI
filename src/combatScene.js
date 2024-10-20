@@ -71,12 +71,40 @@ export default class combatScene extends Phaser.Scene {
 
         this.playerNotes = this.physics.add.group();
         this.enemyNotes = this.physics.add.group();
+        //Contiene las notas que chocan contra notas del player
+        this.playerNotesAndPlayerNotes = this.physics.add.group();
+        //Contiene las notas del enemigo o del player que chocan entre sí
+        this.playerNotesAndEnemyNotes = this.physics.add.group();
 
         //Las notas del enemigo se chocan con el player
-        this.physics.add.collider(this.player, this.enemyNotes, (player,note)=>{
-            console.log("dado");
-            note.destroy();
-        }); // Suelo con cajas
+        this.physics.add.overlap(this.enemyNotes, this.player, (player,note)=>{
+            if(!note.piano){
+                console.log("dado");
+                note.destroy();
+            }
+            /**@todo sumarle puntuación al enemy */
+        });
+        //Notas del player chocandose contra el enemigo
+        this.physics.add.overlap(this.playerNotes, this.enemy, (enemy,note)=>{
+            if(!note.piano){
+                console.log("EnemyDado");
+                note.destroy();
+            }
+            /**@todo sumarle puntuación al player */
+        });
+
+        //Notas del player chocandose contra sus propias notas
+        this.physics.add.overlap(this.playerNotesAndPlayerNotes, this.playerNotes, (collidingNote, receivingNote)=>{
+            if(!collidingNote.piano && !receivingNote.piano)
+            if(!collidingNote.notesCollidedWith.includes(receivingNote)){
+                console.log(collidingNote.efectosAccompaniment);
+                //console.log(collidingNote.efectosAccompaniment);
+                receivingNote.AddKeyword(collidingNote.efectosAccompaniment);
+                /**@todo hacer que la nota aplique los efectos necesarios */
+                collidingNote.notesCollidedWith.push(receivingNote);
+            }
+        });
+
     }
 
     update(){
@@ -110,5 +138,23 @@ export default class combatScene extends Phaser.Scene {
 
     startCombatSong(){
         music.play();
+    }
+
+    callOnce(callback, context = this) {
+
+        if (typeof callback !== 'function') {
+            callback = () => {
+            };
+        }
+
+        let once = false;
+
+        return (...args) => {
+            if (!once) {
+                once = true;
+                callback.apply(context, args);
+            }
+        }
+
     }
 }
