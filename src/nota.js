@@ -84,6 +84,7 @@ export default class Nota extends Phaser.GameObjects.Sprite{
     }
     AddKeyword(config){
         Object.keys(config).forEach(key => {
+            console.log(NotesEffects[key]);
             NotesEffects[key].apply(this, config[key]);
             //const value = object[key];
         });       

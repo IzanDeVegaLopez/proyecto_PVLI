@@ -36,7 +36,7 @@ export default class Player extends BoardUnit{
 
         // Agregamos el caballero a las físicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
-        this.body.setSize(350, 250, true);
+        this.body.setSize(350, 150, true);
     }
     /**
      * 

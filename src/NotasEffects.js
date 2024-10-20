@@ -17,11 +17,13 @@ const notaEffects = {
     },
     adagio: function()
     {
-        this.speed=1/2;
+        this.speed=(1/2);
     },
-    acompañamiento: function(efectosAcompañamiento)
+    accompaniment: function(efectosAccompaniment)
     {
-        this.efectosAcompañamiento=efectosAcompañamiento;
+        if(this.notesCollidedWith==undefined) this.notesCollidedWith =[];
+        this.scene.playerNotesAndPlayerNotes.add(this);
+        this.efectosAccompaniment=efectosAccompaniment;
     },
     silent: function(silentToAdd)
     {
