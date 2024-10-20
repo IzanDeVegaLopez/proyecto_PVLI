@@ -15,14 +15,16 @@ export {deltaTime, clockInstance};
 
 /*Escena de Phaser*/
 export default class combatScene extends Phaser.Scene {
-    lastFrameTime;
+    playerPoints;
+    enemyPoints;
     /**
      * @todo hacer el juego resizeable, tutorial -> https://medium.com/@tajammalmaqbool11/full-screen-size-and-responsive-game-in-phaser-3-e563c2d60eab
      */
 
     constructor(){
         super({key: "menu"});
-        this.lastFrameTime = new Date();
+        this.playerPoints = 0;
+        this.enemyPoints = 0;
     }
 
     init(){
@@ -68,6 +70,10 @@ export default class combatScene extends Phaser.Scene {
 
         music = this.sound.add('currentCombatSong');
 
+        //MARCADORES DE PTS
+        this.playerMarker = this.add.text(140,32,"0",{fontFamily:"Grandstander",fontSize:"48px"}).setTint(0x179bae);
+        this.enemyMarker = this.add.text(1200,32,"0",{fontFamily:"Grandstander",fontSize:"48px"}).setTint(0xff8343);
+
         //Crea los marcadores de ritmo
         new RhythmMarker(this, 3);
 
@@ -102,6 +108,8 @@ export default class combatScene extends Phaser.Scene {
         //Las notas del enemigo se chocan con el player
         this.physics.add.overlap(this.enemyNotes, this.player, (player,note)=>{
             if(!note.piano){
+                this.enemyPoints+= Math.pow(2,note.tipoNota);
+                this.enemyMarker.text = this.enemyPoints;
                 console.log("dado");
                 note.destroy();
             }
@@ -110,6 +118,8 @@ export default class combatScene extends Phaser.Scene {
         //Notas del player chocandose contra el enemigo
         this.physics.add.overlap(this.playerNotes, this.enemy, (enemy,note)=>{
             if(!note.piano){
+                this.playerPoints+= Math.pow(2,note.tipoNota);
+                this.playerMarker.text = this.playerPoints;
                 console.log("EnemyDado");
                 note.destroy();
             }
