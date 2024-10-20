@@ -47,6 +47,14 @@ export default class Nota extends Phaser.GameObjects.Sprite{
         clockInstance.eventEmitter.on("BeatNow", this.BeatFunction.bind(this));
         this.scene.events.on('postupdate', this.PostUpdate.bind(this));
  
+        scene.physics.add.existing(this);
+        this.body.setSize(20, 20, true);
+        //Se define como nota del player o del enemy
+        if(this.direction == 1){
+            scene.playerNotes.add(this);
+        }else{
+            scene.enemyNotes.add(this);
+        }
     }
 
     //After each update moves note forward
