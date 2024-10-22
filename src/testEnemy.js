@@ -2,7 +2,7 @@
 const testEnemy = {
     startPosY: 2,
     name: "testEnemy",
-    bpm: 75,
+    bpm: 78,
     imagePath: "./assets/img/testEnemy.png",
     songPath: './assets/audio/Brutal_Orchestra_OST_Primary_Colours',
     enemyActions:
