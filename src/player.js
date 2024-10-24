@@ -19,6 +19,9 @@ export default class Player extends BoardUnit{
      *      * @param {*} instrument2
      *      * @param {*} instrument3
      */
+
+    conchas;
+    
     constructor(scene, instrumento1 = undefined, instrumento2 = undefined, instrumento3 = undefined){
         //Crea un sprite con el valor de la escena y la posición inicial del player y la textura de nuestro personaje
         super(scene, {x:1, y:2}, 'sawa');  
@@ -37,6 +40,8 @@ export default class Player extends BoardUnit{
         // Agregamos el caballero a las físicas para que Phaser lo tenga en cuenta
 		scene.physics.add.existing(this);
         this.body.setSize(350, 150, true);
+        
+        this.conchas = 0;
     }
     /**
      * 
